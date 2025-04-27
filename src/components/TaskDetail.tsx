@@ -3,6 +3,7 @@ import { useParams } from 'react-router'
 import { tasks } from '../utils/temp/tasks'
 import Editor from '@monaco-editor/react'
 import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels'
+import Description from './Description/Description'
 
 const TaskDetail = () => {
   const { title } = useParams()
@@ -24,17 +25,15 @@ const TaskDetail = () => {
         direction="horizontal"
         className="flex flex-1 h-full overflow-hidden"
       >
-          {/* Description Panel */}
-          <Panel
-            defaultSize={10}
-            className="bg-white p-4 rounded shadow h-full overflow-auto bg-[#262626]"
-          >
-            <h2 className="text-xl font-semibold mb-2 text-white">Description</h2>
-            <p className="text-gray-700 whitespace-pre-wrap text-white">
-              {task.description}
-            </p>
-          </Panel>
-          <PanelResizeHandle className="w-2 cursor-col-resize" />
+        {/* Description Panel */}
+        <Panel
+          defaultSize={10}
+          className="p-4 rounded shadow h-full overflow-auto bg-[#262626]"
+        >
+          <h2 className="text-xl font-semibold mb-2 ">Description</h2>
+          <Description description={task.description} />
+        </Panel>
+        <PanelResizeHandle className="w-2 cursor-col-resize" />
         {/* Right: vertical split between Code and AI */}
         <PanelGroup
           direction="vertical"
@@ -47,15 +46,17 @@ const TaskDetail = () => {
             className="rounded shadow flex flex-col overflow-hidden bg-[#262626]"
           >
             <div>
-            <h2 className="text-xl font-semibold mb-2 text-white pl-2 pt-2">Code</h2>
+              <h2 className="text-xl font-semibold mb-2 text-white pl-2 pt-2">
+                Code
+              </h2>
               <Editor
                 height="100%"
                 defaultLanguage="csharp"
                 theme="vs-dark"
                 options={{ automaticLayout: true }}
-                className='rounded bg-[#262626]'
+                className="rounded bg-[#262626]"
               />
-              </div>
+            </div>
           </Panel>
           <PanelResizeHandle className="h-2 cursor-row-resize" />
 
@@ -63,7 +64,7 @@ const TaskDetail = () => {
           <Panel
             defaultSize={30}
             minSize={10}
-            className="bg-white p-4 rounded shadow overflow-auto bg-[#262626]"
+            className="p-4 rounded shadow overflow-auto bg-[#262626]"
           >
             <h2 className="text-xl font-semibold mb-2">AI Assistant</h2>
             <div className="w-full h-full border border-gray-300 rounded border-transparent bg-[#ffffff1a]" />
