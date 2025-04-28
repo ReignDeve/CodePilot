@@ -20,17 +20,25 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "lint": "eslint src --max-warnings=0",
-    "typecheck": "tsc --project tsconfig.json --noEmit"
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "start": "webpack serve --config webpack.config.js",
+    "build:wb": "webpack --config webpack.config.js"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
+    "@radix-ui/react-navigation-menu": "^1.2.10",
     "@radix-ui/themes": "^3.2.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-icons": "^5.5.0",
+    "react-monaco-editor": "^0.58.0",
     "react-resizable-panels": "^2.1.8",
     "react-router": "^7.5.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-react": "^7.26.3",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^14.3.1",
     "@types/node": "^20.17.19",
@@ -41,6 +49,8 @@
     "@vitejs/plugin-react-swc": "^3.8.0",
     "@vitest/ui": "^1.6.1",
     "autoprefixer": "^10.4.20",
+    "babel-loader": "^10.0.0",
+    "css-loader": "^7.1.2",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.3",
@@ -50,10 +60,14 @@
     "happy-dom": "^15.11.7",
     "postcss": "^8.5.3",
     "prettier": "3.1.1",
+    "style-loader": "^4.0.0",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.3",
     "vite": "^5.4.14",
     "vite-tsconfig-paths": "^4.3.2",
-    "vitest": "^1.6.1"
+    "vitest": "^1.6.1",
+    "webpack": "^5.99.7",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.1"
   }
 }

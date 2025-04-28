@@ -8,43 +8,85 @@ interface DescriptionProps {
 const Description: React.FC<DescriptionProps> = ({ description }) => {
   const lines: string[] = description.split('\n');
   const elements: React.ReactNode[] = [];
-  let buffer: string[] = [];
-  let currentHeading: string | null = null;
+  let i = 0;
 
-  const pushBuffer = () => {
-    if (!currentHeading && buffer.length) {
+  while (i < lines.length) {
+    const line = lines[i].trim();
+
+    if (/^Example \d/.test(line)) {
+      // Heading for Example
       elements.push(
-        <p key={elements.length} className="mb-2 text-white whitespace-pre-wrap">
-          {buffer.join('\n')}
-        </p>
+        <h3 key={i} className="font-semibold mt-4 mb-2 ">
+          {line}
+        </h3>
       );
-    } else if (currentHeading) {
+      i++;
+      // Collect blockquote lines until next section or blank
+      const blockLines: string[] = [];
+      while (
+        i < lines.length &&
+        lines[i].trim() &&
+        !/^(Example \d|Constraints:|You may assume:)/.test(lines[i].trim())
+      ) {
+        blockLines.push(lines[i]);
+        i++;
+      }
       elements.push(
-        <div key={elements.length} className="mb-4">
-          <h3 className="font-semibold mt-2 mb-1">{currentHeading}</h3>
-          {buffer.map((line, idx) => (
-            <p key={idx} className="text-white whitespace-pre-wrap">
-              {line}
+        <blockquote
+          key={`b${i}`}
+          className="pl-4 border-l-4 border-gray-300 italic text-gray-100 mb-4"
+        >
+          {blockLines.map((l, idx) => (
+            <p key={idx} className="whitespace-pre-wrap ">
+              {l}
             </p>
           ))}
-        </div>
+        </blockquote>
       );
-    }
-    buffer = [];
-  };
-
-  lines.forEach((line: string) => {
-    const trimmed = line.trim();
-    if (/^(You may assume|Example \d|Constraints):/.test(trimmed)) {
-      if (buffer.length) {
-        pushBuffer();
+    } else if (/^You may assume:/.test(line)) {
+      elements.push(
+        <h3 key={i} className="font-semibold mt-4 mb-2">
+          You may assume:
+        </h3>
+      );
+      i++;
+      while (
+        i < lines.length &&
+        lines[i].trim() &&
+        !/^(Example \d|Constraints:)/.test(lines[i].trim())
+      ) {
+        elements.push(
+          <p key={i} className="text-gray-100 whitespace-pre-wrap ml-4">
+            {lines[i].trim().replace(/^- /, '• ')}
+          </p>
+        );
+        i++;
       }
-      currentHeading = trimmed.replace(/:$/, '');
+    } else if (/^Constraints:/.test(line)) {
+      elements.push(
+        <h3 key={i} className="font-semibold mt-4 mb-2">
+          Constraints:
+        </h3>
+      );
+      i++;
+      while (i < lines.length && lines[i].trim()) {
+        elements.push(
+          <p key={i} className="text-gray-100 whitespace-pre-wrap ml-4">
+            {lines[i].trim().replace(/^- /, '• ')}
+          </p>
+        );
+        i++;
+      }
     } else {
-      buffer.push(line);
+      // Regular paragraph
+      elements.push(
+        <p key={i} className="text-gray-100 mb-2 whitespace-pre-wrap">
+          {lines[i]}
+        </p>
+      );
+      i++;
     }
-  });
-  if (buffer.length) pushBuffer();
+  }
 
   return <div>{elements}</div>;
 };
