@@ -40,10 +40,10 @@ const Navigation: React.FC = () => (
 				<Label.Root className="text-white">Settings</Label.Root>
 			  </Flex>
 			  <Flex align="center" gap="2" asChild>
-				<Label.Root className="text-white">Settings</Label.Root>
+				<Label.Root className="text-white">FAQ</Label.Root>
 			  </Flex>
 			  <Flex align="center" gap="2" asChild>
-				<Label.Root className="text-white">Settings</Label.Root>
+				<Label.Root className="text-white">Sign In</Label.Root>
 			  </Flex>
 			</Flex>
 		  </Box>

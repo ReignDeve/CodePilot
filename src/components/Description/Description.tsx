@@ -88,7 +88,7 @@ const Description: React.FC<DescriptionProps> = ({ description }) => {
     }
   }
 
-  return <div>{elements}</div>;
+  return <div className='overflow-y-auto h-[700px]'>{elements}</div>;
 };
 
 export default Description;

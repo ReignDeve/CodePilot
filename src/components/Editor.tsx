@@ -16,8 +16,8 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   onChange,
   language = 'csharp',
   theme = 'vs-dark',
-  height = '400px',
-  options = { selectOnLineNumbers: true, roundedSelection: false, readOnly: false },
+  height = '800px',
+  options = { selectOnLineNumbers: true, roundedSelection: false, readOnly: false, acceptSuggestionOnEnter: "on", acceptSuggestionOnCommitCharacter: true },
 }) => {
   // Internal change handler adapts Monaco callback to our onChange
   const handleChange: MonacoOnChange = (newValue) => {
@@ -34,6 +34,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
       height={height}
       options={options}
       onChange={handleChange}
+      className='h-full'
     />
   );
 };

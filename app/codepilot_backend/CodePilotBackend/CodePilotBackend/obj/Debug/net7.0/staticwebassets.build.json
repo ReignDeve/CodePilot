@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "Tg6eYmQSJXbL4i9kvgKTJwPzsC4myAwNZz45v36Ewmo=",
+  "Source": "CodePilot.Backend.WebAPI",
+  "BasePath": "_content/CodePilot.Backend.WebAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
