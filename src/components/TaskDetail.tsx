@@ -35,21 +35,21 @@ const TaskDetail = () => {
     )
   }
   return (
-    <div className="flex flex-col p-2 h-full rounded text-white overflow-hidden">
+    <div className="flex h-full flex-col overflow-hidden rounded p-2 text-white">
       {/* Main resizable panels: horizontal split */}
       <PanelGroup
         direction="horizontal"
-        className="flex flex-1 h-full overflow-hidden"
+        className="flex h-full flex-1 overflow-hidden"
       >
         {/* Description Panel */}
         <Panel
           defaultSize={10}
-          className="rounded shadow h-full overflow-y-auto bg-[#ffffff1a]"
+          className="h-full overflow-y-auto rounded bg-[#ffffff1a] shadow"
         >
-          <h2 className="text-xl font-semibold mb-2 pl-2 pt-2">Description</h2>
-          <div className="w-full h-full border border-gray-300 rounded border-transparent bg-[#262626] pl-4">
-            <h2 className="text-xl font-semibold mb-3 mt-3">{task.title}</h2>
-            <div className="w-[100%] overflow-y-auto">
+          <h2 className="mb-2 pl-2 pt-2 text-xl font-semibold">Description</h2>
+          <div className="size-full rounded border border-gray-300 border-transparent bg-[#262626] pl-4">
+            <h2 className="my-3 text-xl font-semibold">{task.title}</h2>
+            <div className="w-full overflow-y-auto">
               <Description description={task.description} />
             </div>
           </div>
@@ -58,18 +58,18 @@ const TaskDetail = () => {
         {/* Right: vertical split between Code and AI */}
         <PanelGroup
           direction="vertical"
-          className="flex flex-1 h-full overflow-hidden"
+          className="flex h-full flex-1 overflow-hidden"
         >
           {/* Code Editor Panel */}
           <Panel
             defaultSize={70}
             minSize={20}
-            className="rounded shadow flex flex-col overflow-hidden bg-[#ffffff1a]"
+            className="flex flex-col overflow-hidden rounded bg-[#ffffff1a] shadow"
           >
-            <h2 className="text-xl font-semibold mb-2 text-white pl-2 pt-2">
+            <h2 className="mb-2 pl-2 pt-2 text-xl font-semibold text-white">
               Code
             </h2>
-            <div className="w-full h-full border border-gray-300 rounded border-transparent bg-[#262626]">
+            <div className="size-full rounded border border-gray-300 border-transparent bg-[#262626]">
               <CodeEditor
                 value={task.code}
                 onChange={(newCode) => setCode(newCode)}
@@ -82,18 +82,18 @@ const TaskDetail = () => {
           <Panel
             defaultSize={30}
             minSize={10}
-            className="rounded shadow overflow-auto bg-[#ffffff1a]"
+            className="overflow-auto rounded bg-[#ffffff1a] shadow"
           >
-            <h2 className="text-xl font-semibold mb-2 pl-2 pt-2">
+            <h2 className="mb-2 pl-2 pt-2 text-xl font-semibold">
               AI Assistant
             </h2>
-            <div className="w-full h-full border border-gray-300 rounded border-transparent bg-[#262626] p-2">
+            <div className="size-full rounded border border-gray-300 border-transparent bg-[#262626] p-2">
               <Button className="m-2" onClick={handleSubmit}>
                 {' '}
                 Pilot Fragen
               </Button>
               {answer && (
-                <pre className="mt-4 p-2 bg-gray-800 text-white rounded">
+                <pre className="mt-4 rounded bg-gray-800 p-2 text-white">
                   {answer}
                 </pre>
               )}
