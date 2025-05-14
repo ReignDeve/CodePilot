@@ -1,3 +1,3 @@
 {
-    "testrequest": "https://localhost:7277/Test"
+    "testrequest": "https://localhost:7277/api/explain"
 }

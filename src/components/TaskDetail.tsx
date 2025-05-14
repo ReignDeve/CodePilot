@@ -1,23 +1,23 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router'
 import { tasks } from '../utils/temp/tasks'
-import Editor from '@monaco-editor/react'
 import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels'
 import Description from './Description/Description'
 import CodeEditor from './Editor'
 import { askPilot, PilotRequest } from 'services/QuestionService'
 import { Button } from '@radix-ui/themes'
+import Markdown from 'react-markdown'
 
 const TaskDetail = () => {
   const { title } = useParams()
   const decodedTitle = decodeURIComponent(title || '')
   const task = tasks.find((t) => t.title === decodedTitle)
   const [code, setCode] = useState<string>()
-  const [question, setQuestion] = useState<string>('')
   const [answer, setAnswer] = useState<string | null>(null)
 
   const handleSubmit = async () => {
-    const payload: PilotRequest = { code, question }
+    console.log('Code:', JSON.stringify(code))
+    const payload: PilotRequest = { text: code || '' }
     try {
       const result = await askPilot(payload)
       setAnswer(result)
@@ -47,7 +47,7 @@ const TaskDetail = () => {
           className="h-full overflow-y-auto rounded bg-[#ffffff1a] shadow"
         >
           <h2 className="mb-2 pl-2 pt-2 text-xl font-semibold">Description</h2>
-          <div className="size-full rounded border border-gray-300 border-transparent bg-[#262626] pl-4">
+          <div className="size-full rounded border border-transparent bg-[#262626] pl-4">
             <h2 className="my-3 text-xl font-semibold">{task.title}</h2>
             <div className="w-full overflow-y-auto">
               <Description description={task.description} />
@@ -69,7 +69,7 @@ const TaskDetail = () => {
             <h2 className="mb-2 pl-2 pt-2 text-xl font-semibold text-white">
               Code
             </h2>
-            <div className="size-full rounded border border-gray-300 border-transparent bg-[#262626]">
+            <div className="size-full rounded border border-transparent bg-[#262626]">
               <CodeEditor
                 value={task.code}
                 onChange={(newCode) => setCode(newCode)}
@@ -87,14 +87,14 @@ const TaskDetail = () => {
             <h2 className="mb-2 pl-2 pt-2 text-xl font-semibold">
               AI Assistant
             </h2>
-            <div className="size-full rounded border border-gray-300 border-transparent bg-[#262626] p-2">
+            <div className="size-full rounded border  border-transparent bg-[#262626] p-2">
               <Button className="m-2" onClick={handleSubmit}>
                 {' '}
                 Pilot Fragen
               </Button>
               {answer && (
-                <pre className="mt-4 rounded bg-gray-800 p-2 text-white">
-                  {answer}
+                <pre className="mt-4 text-wrap rounded bg-[#ffffff1a] p-2 text-white">
+                  <Markdown>{answer}</Markdown>
                 </pre>
               )}
             </div>
