@@ -43,6 +43,8 @@ yarn-error.log*
 *.sln.ide
 +.vsidx
 app\codepilot_backend\CodePilotBackend\.vs
+appsettings.Development.json
+appsettings.json
 
 # Rider / ReSharper
 .idea/

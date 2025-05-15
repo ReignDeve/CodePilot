@@ -11,7 +11,6 @@ public class CodePilotDbContext : DbContext
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
-    // *** Achtung: modelBuilder-Instanz verwenden – KEINE statische Methode! ***
     modelBuilder.Entity<CodingTask>(e =>
     {
       e.ToTable("Tasks");
