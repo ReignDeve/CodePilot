@@ -1,66 +1,105 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router'
-import { tasks } from '../utils/temp/tasks'
 import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels'
 import Description from './Description/Description'
 import CodeEditor from './Editor'
-import { askPilot, PilotRequest } from 'services/QuestionService'
-import { Button } from '@radix-ui/themes'
+import { askPilot } from 'services/QuestionService'
+import { getTask, TaskDto } from 'services/TaskService'
+import { Badge, Button } from '@radix-ui/themes'
 import Markdown from 'react-markdown'
+import { setTaskStatus } from 'services/TaskService'
 
-const TaskDetail = () => {
-  const { title } = useParams()
-  const decodedTitle = decodeURIComponent(title || '')
-  const task = tasks.find((t) => t.title === decodedTitle)
+const TaskDetail: React.FC = () => {
+  const { id } = useParams() // <— ID statt title
+  const [task, setTask] = useState<TaskDto | null>(null)
   const [code, setCode] = useState<string>()
   const [answer, setAnswer] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [localStatus, setLocalStatus] = useState<TaskDto['status'] | null>(null)
+  const hasStartedRef = useRef(false)
 
+  const statusStyles: Record<TaskDto['status'], 'orange' | 'blue' | 'green'> = {
+    NotStarted: 'orange',
+    InProgress: 'blue',
+    Completed: 'green'
+  }
+
+  /* --------- Task vom Backend laden --------- */
+  useEffect(() => {
+    if (!id) return
+    getTask(id)
+      .then((t) => {
+        setTask(t)
+        setCode(t.code)
+      })
+      .catch((e) => setError(e.message))
+  }, [id])
+
+  /* --------- Pilot-Aufruf --------- */
   const handleSubmit = async () => {
-    console.log('Code:', JSON.stringify(code))
-    const payload: PilotRequest = { text: code || '' }
+    if (!task?.id || !code) {
+      setAnswer('Task oder Code fehlt')
+      return
+    }
     try {
-      const result = await askPilot(payload)
-      setAnswer(result)
-    } catch (err) {
-      console.error(err)
+      setAnswer(await askPilot(task.id, code))
+    } catch {
       setAnswer('Fehler beim Abruf')
     }
   }
 
-  if (!task) {
-    return (
-      <div className="flex items-center justify-center bg-gray-50 p-4">
-        <p className="text-red-500">Task not found.</p>
-      </div>
-    )
+  const handleCodeChange = async (newCode: string) => {
+    setCode(newCode)
+
+    // ② Bei allererstem Tipp: Status wechseln
+    if (!hasStartedRef.current && task?.status === 'NotStarted') {
+      hasStartedRef.current = true
+      try {
+        await setTaskStatus(task.id, 'InProgress')
+        setTask((prev) => (prev ? { ...prev, status: 'InProgress' } : prev)) // UI-Refresh
+        setLocalStatus('InProgress')
+      } catch (e) {
+        console.error(e)
+      }
+    }
   }
+
+  /* --------- UI --------- */
+  if (error) return <p className="text-red-500">{error}</p>
+  if (!task) return <p className="text-white">Lade Task…</p>
+
   return (
     <div className="flex h-full flex-col overflow-hidden rounded p-2 text-white">
-      {/* Main resizable panels: horizontal split */}
       <PanelGroup
         direction="horizontal"
         className="flex h-full flex-1 overflow-hidden"
       >
-        {/* Description Panel */}
+        {/* Description */}
         <Panel
           defaultSize={10}
           className="h-full overflow-y-auto rounded bg-[#ffffff1a] shadow"
         >
-          <h2 className="mb-2 pl-2 pt-2 text-xl font-semibold">Description</h2>
-          <div className="size-full rounded border border-transparent bg-[#262626] pl-4">
+          <div>
+            <h2 className="mb-2 pl-2 pt-2 text-xl font-semibold">
+              Description
+            </h2>
+            <Badge color={statusStyles[localStatus ?? task.status]}>
+              {localStatus ?? task.status}
+            </Badge>
+          </div>
+          <div className="size-full rounded bg-[#262626] pl-4">
             <h2 className="my-3 text-xl font-semibold">{task.title}</h2>
-            <div className="w-full overflow-y-auto">
-              <Description description={task.description} />
-            </div>
+            <Description description={task.description} />
           </div>
         </Panel>
+
         <PanelResizeHandle className="w-2 cursor-col-resize" />
-        {/* Right: vertical split between Code and AI */}
+
+        {/* Code + AI */}
         <PanelGroup
           direction="vertical"
           className="flex h-full flex-1 overflow-hidden"
         >
-          {/* Code Editor Panel */}
           <Panel
             defaultSize={70}
             minSize={20}
@@ -69,16 +108,13 @@ const TaskDetail = () => {
             <h2 className="mb-2 pl-2 pt-2 text-xl font-semibold text-white">
               Code
             </h2>
-            <div className="size-full rounded border border-transparent bg-[#262626]">
-              <CodeEditor
-                value={task.code}
-                onChange={(newCode) => setCode(newCode)}
-              />
+            <div className="size-full rounded bg-[#262626]">
+              <CodeEditor value={code} onChange={handleCodeChange} />
             </div>
           </Panel>
+
           <PanelResizeHandle className="h-2 cursor-row-resize" />
 
-          {/* AI Assistant Panel */}
           <Panel
             defaultSize={30}
             minSize={10}
@@ -87,13 +123,12 @@ const TaskDetail = () => {
             <h2 className="mb-2 pl-2 pt-2 text-xl font-semibold">
               AI Assistant
             </h2>
-            <div className="size-full rounded border  border-transparent bg-[#262626] p-2">
+            <div className="size-full rounded bg-[#262626] p-2">
               <Button className="m-2" onClick={handleSubmit}>
-                {' '}
-                Pilot Fragen
+                Überprüfen Lassen
               </Button>
               {answer && (
-                <pre className="mt-4 text-wrap rounded bg-[#ffffff1a] p-2 text-white">
+                <pre className="mt-4 whitespace-pre-wrap rounded bg-[#ffffff1a] p-2 text-white">
                   <Markdown>{answer}</Markdown>
                 </pre>
               )}

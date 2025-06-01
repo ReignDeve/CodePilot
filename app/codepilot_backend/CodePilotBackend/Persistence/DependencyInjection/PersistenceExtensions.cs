@@ -17,6 +17,8 @@ namespace Persistence.DependencyInjection
       services.AddDbContext<CodePilotDbContext>(opt => opt.UseSqlite(conn));
 
       services.AddScoped<ITaskRepository, TaskRepository>();
+      services.AddScoped<IUserRepository, UserRepository>();
+      services.AddScoped<IUserTaskProgressRepository, UserTaskProgressRepository>();
       return services;
     }
   }

@@ -1,3 +1,8 @@
 {
-    "testrequest": "https://localhost:7277/api/explain"
+    "testrequest": "https://localhost:7277/api/explain/task",
+    "getAllTasks": "https://localhost:7277/api/Tasks",
+    "getTaskById": "https://localhost:7277/api/Tasks/{id}",
+    "updateTaskStatus": "https://localhost:7277/api/Tasks/{id}/status",
+    "authRegister": "https://localhost:7277/api/auth/register",
+    "authLogin": "https://localhost:7277/api/auth/login"
 }

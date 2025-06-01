@@ -14,15 +14,16 @@ export interface PilotResponse {
  * @returns Antwort-String vom Server
  * @throws Error, wenn der Request fehlschlägt
  */
-export async function askPilot(payload: PilotRequest): Promise<string> {
-  const url = routes.testrequest // Pfad aus apiroute.json, z.B. { "test": "http://localhost:5000/Test" }
+export async function askPilot(taskId: string, code: string): Promise<string> {
+  const token = localStorage.getItem('jwt')
+  const url = routes.testrequest
   const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Accept: 'application/json'
+      Authorization: `Bearer ${token}`
     },
-    body: JSON.stringify(payload)
+    body: JSON.stringify({ taskId, code })
   })
 
   if (!response.ok) {

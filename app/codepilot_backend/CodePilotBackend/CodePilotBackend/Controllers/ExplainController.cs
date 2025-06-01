@@ -1,8 +1,10 @@
 using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodePilot.Backend.WebAPI.Controllers
 {
+  [Authorize]
   [ApiController]
   [Route("api/explain")]
   public sealed class ExplainController : ControllerBase
@@ -11,21 +13,42 @@ namespace CodePilot.Backend.WebAPI.Controllers
 
     public ExplainController(IExplainService explain) => _explain = explain;
 
-    /* ---------- JSON-Variante ------------------------------------------------- */
+    // ───────────────────────────────
+    // Request-DTOs
+    // ───────────────────────────────
+    public record ExplainCodeRequest(string Code);
+    public record ExplainTaskRequest(Guid TaskId, string Code);
 
-    // POST api/explain   (Content-Type: application/json)
-    public sealed record ExplainRequest(string Text);
-
-    [HttpPost]
-    [Consumes("application/json")]
-    public async Task<ActionResult<string>> PostJson(
-        [FromBody] ExplainRequest body, CancellationToken ct)
+    // ───────────────────────────────
+    // POST api/explain/code
+    // ───────────────────────────────
+    [HttpPost("code")]
+    public async Task<ActionResult<string>> PostForCode(
+        [FromBody] ExplainCodeRequest req,
+        CancellationToken ct)
     {
-      if (string.IsNullOrWhiteSpace(body.Text))
-        return BadRequest("Text darf nicht leer sein.");
+      if (string.IsNullOrWhiteSpace(req.Code))
+        return BadRequest("Code darf nicht leer sein.");
 
-      var answer = await _explain.ExplainAsync(body.Text, ct);
-      return Ok(answer);
+      var explanation = await _explain.ExplainCodeAsync(req.Code, ct);
+      return Ok(explanation);
+    }
+
+    // ───────────────────────────────
+    // POST api/explain/task
+    // ───────────────────────────────
+    [HttpPost("task")]
+    public async Task<ActionResult<string>> PostForTask(
+        [FromBody] ExplainTaskRequest req,
+        CancellationToken ct)
+    {
+      if (string.IsNullOrWhiteSpace(req.Code))
+        return BadRequest("Code darf nicht leer sein.");
+
+      var explanation = await _explain.ExplainTaskAsync(
+          req.TaskId, req.Code, ct);
+
+      return Ok(explanation);
     }
   }
 

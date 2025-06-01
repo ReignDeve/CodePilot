@@ -1,0 +1,211 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{EC82AEC4-B1AD-499C-A28D-00A71262CB04}|Application\\Application.csproj|c:\\users\\marius\\desktop\\dev\\codepilot\\app\\codepilot_backend\\codepilotbackend\\application\\services\\codetutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC82AEC4-B1AD-499C-A28D-00A71262CB04}|Application\\Application.csproj|solutionrelative:application\\services\\codetutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC82AEC4-B1AD-499C-A28D-00A71262CB04}|Application\\Application.csproj|c:\\users\\marius\\desktop\\dev\\codepilot\\app\\codepilot_backend\\codepilotbackend\\application\\plugins\\explain\\explainexercise\\skprompt.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{EC82AEC4-B1AD-499C-A28D-00A71262CB04}|Application\\Application.csproj|solutionrelative:application\\plugins\\explain\\explainexercise\\skprompt.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CDBFCCC-CA35-4246-AFC3-1EF389E4EF1D}|CodePilotBackend\\CodePilot.Backend.WebAPI.csproj|c:\\users\\marius\\desktop\\dev\\codepilot\\app\\codepilot_backend\\codepilotbackend\\codepilotbackend\\controllers\\explaincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CDBFCCC-CA35-4246-AFC3-1EF389E4EF1D}|CodePilotBackend\\CodePilot.Backend.WebAPI.csproj|solutionrelative:codepilotbackend\\controllers\\explaincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC82AEC4-B1AD-499C-A28D-00A71262CB04}|Application\\Application.csproj|c:\\users\\marius\\desktop\\dev\\codepilot\\app\\codepilot_backend\\codepilotbackend\\application\\services\\explainservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC82AEC4-B1AD-499C-A28D-00A71262CB04}|Application\\Application.csproj|solutionrelative:application\\services\\explainservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC82AEC4-B1AD-499C-A28D-00A71262CB04}|Application\\Application.csproj|c:\\users\\marius\\desktop\\dev\\codepilot\\app\\codepilot_backend\\codepilotbackend\\application\\interfaces\\icodetutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC82AEC4-B1AD-499C-A28D-00A71262CB04}|Application\\Application.csproj|solutionrelative:application\\interfaces\\icodetutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CDBFCCC-CA35-4246-AFC3-1EF389E4EF1D}|CodePilotBackend\\CodePilot.Backend.WebAPI.csproj|c:\\users\\marius\\desktop\\dev\\codepilot\\app\\codepilot_backend\\codepilotbackend\\codepilotbackend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CDBFCCC-CA35-4246-AFC3-1EF389E4EF1D}|CodePilotBackend\\CodePilot.Backend.WebAPI.csproj|solutionrelative:codepilotbackend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC82AEC4-B1AD-499C-A28D-00A71262CB04}|Application\\Application.csproj|c:\\users\\marius\\desktop\\dev\\codepilot\\app\\codepilot_backend\\codepilotbackend\\application\\dependencyinjection\\applicationextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC82AEC4-B1AD-499C-A28D-00A71262CB04}|Application\\Application.csproj|solutionrelative:application\\dependencyinjection\\applicationextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC82AEC4-B1AD-499C-A28D-00A71262CB04}|Application\\Application.csproj|c:\\users\\marius\\desktop\\dev\\codepilot\\app\\codepilot_backend\\codepilotbackend\\application\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC82AEC4-B1AD-499C-A28D-00A71262CB04}|Application\\Application.csproj|solutionrelative:application\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5CDBFCCC-CA35-4246-AFC3-1EF389E4EF1D}|CodePilotBackend\\CodePilot.Backend.WebAPI.csproj|c:\\users\\marius\\desktop\\dev\\codepilot\\app\\codepilot_backend\\codepilotbackend\\codepilotbackend\\controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CDBFCCC-CA35-4246-AFC3-1EF389E4EF1D}|CodePilotBackend\\CodePilot.Backend.WebAPI.csproj|solutionrelative:codepilotbackend\\controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57C6BF50-BBB2-4E4E-ACFC-F7D44F259DBA}|Domain\\Domain.csproj|c:\\users\\marius\\desktop\\dev\\codepilot\\app\\codepilot_backend\\codepilotbackend\\domain\\entities\\usertaskprogress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57C6BF50-BBB2-4E4E-ACFC-F7D44F259DBA}|Domain\\Domain.csproj|solutionrelative:domain\\entities\\usertaskprogress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{57C6BF50-BBB2-4E4E-ACFC-F7D44F259DBA}|Domain\\Domain.csproj|c:\\users\\marius\\desktop\\dev\\codepilot\\app\\codepilot_backend\\codepilotbackend\\domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57C6BF50-BBB2-4E4E-ACFC-F7D44F259DBA}|Domain\\Domain.csproj|solutionrelative:domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 215,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "skprompt.txt",
+              "DocumentMoniker": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\Application\\Plugins\\Explain\\ExplainExercise\\skprompt.txt",
+              "RelativeDocumentMoniker": "Application\\Plugins\\Explain\\ExplainExercise\\skprompt.txt",
+              "ToolTip": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\Application\\Plugins\\Explain\\ExplainExercise\\skprompt.txt",
+              "RelativeToolTip": "Application\\Plugins\\Explain\\ExplainExercise\\skprompt.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-06-01T12:09:39.345Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ExplainController.cs",
+              "DocumentMoniker": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\CodePilotBackend\\Controllers\\ExplainController.cs",
+              "RelativeDocumentMoniker": "CodePilotBackend\\Controllers\\ExplainController.cs",
+              "ToolTip": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\CodePilotBackend\\Controllers\\ExplainController.cs",
+              "RelativeToolTip": "CodePilotBackend\\Controllers\\ExplainController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwC8AAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-31T12:44:31.753Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ExplainService.cs",
+              "DocumentMoniker": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\Application\\Services\\ExplainService.cs",
+              "RelativeDocumentMoniker": "Application\\Services\\ExplainService.cs",
+              "ToolTip": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\Application\\Services\\ExplainService.cs",
+              "RelativeToolTip": "Application\\Services\\ExplainService.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAswFMAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-31T08:01:27.365Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ICodeTutor.cs",
+              "DocumentMoniker": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\Application\\Interfaces\\ICodeTutor.cs",
+              "RelativeDocumentMoniker": "Application\\Interfaces\\ICodeTutor.cs",
+              "ToolTip": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\Application\\Interfaces\\ICodeTutor.cs",
+              "RelativeToolTip": "Application\\Interfaces\\ICodeTutor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-31T12:42:49.364Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CodeTutor.cs",
+              "DocumentMoniker": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\Application\\Services\\CodeTutor.cs",
+              "RelativeDocumentMoniker": "Application\\Services\\CodeTutor.cs",
+              "ToolTip": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\Application\\Services\\CodeTutor.cs",
+              "RelativeToolTip": "Application\\Services\\CodeTutor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAswCMAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-31T12:42:22.085Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ApplicationExtensions.cs",
+              "DocumentMoniker": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\Application\\DependencyInjection\\ApplicationExtensions.cs",
+              "RelativeDocumentMoniker": "Application\\DependencyInjection\\ApplicationExtensions.cs",
+              "ToolTip": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\Application\\DependencyInjection\\ApplicationExtensions.cs",
+              "RelativeToolTip": "Application\\DependencyInjection\\ApplicationExtensions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-31T12:17:14.501Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\Application\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "Application\\Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\Application\\Services\\AuthService.cs",
+              "RelativeToolTip": "Application\\Services\\AuthService.cs",
+              "ViewState": "AgIAADsAAAAAAAAAAAAwwFMAAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-21T08:33:09.366Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "TaskController.cs",
+              "DocumentMoniker": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\CodePilotBackend\\Controllers\\TaskController.cs",
+              "RelativeDocumentMoniker": "CodePilotBackend\\Controllers\\TaskController.cs",
+              "ToolTip": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\CodePilotBackend\\Controllers\\TaskController.cs",
+              "RelativeToolTip": "CodePilotBackend\\Controllers\\TaskController.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAgwCUAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-21T08:30:53.458Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\CodePilotBackend\\Program.cs",
+              "RelativeDocumentMoniker": "CodePilotBackend\\Program.cs",
+              "ToolTip": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\CodePilotBackend\\Program.cs",
+              "RelativeToolTip": "CodePilotBackend\\Program.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAADgvygAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T13:08:46.169Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\Domain\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "Domain\\Entities\\User.cs",
+              "ToolTip": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\Domain\\Entities\\User.cs",
+              "RelativeToolTip": "Domain\\Entities\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T12:50:02.942Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "UserTaskProgress.cs",
+              "DocumentMoniker": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\Domain\\Entities\\UserTaskProgress.cs",
+              "RelativeDocumentMoniker": "Domain\\Entities\\UserTaskProgress.cs",
+              "ToolTip": "C:\\Users\\Marius\\Desktop\\Dev\\CodePilot\\app\\codepilot_backend\\CodePilotBackend\\Domain\\Entities\\UserTaskProgress.cs",
+              "RelativeToolTip": "Domain\\Entities\\UserTaskProgress.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-18T16:40:21.569Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

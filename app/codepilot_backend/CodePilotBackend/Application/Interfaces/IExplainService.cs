@@ -9,8 +9,12 @@ namespace Application.Interfaces
   public interface IExplainService
   {
     /// <summary>
-    /// Liefert eine verständliche Erklärung für den übergebenen Text.
+    /// Erklärt den übergebenen Code nur.
     /// </summary>
-    Task<string> ExplainAsync(string input, CancellationToken ct = default);
+    Task<string> ExplainCodeAsync(string code, CancellationToken ct = default);
+    /// <summary>
+    /// Erklärt den übergebenen Code im Kontext des Task mit der gegebenen Id.
+    /// </summary>
+    Task<string> ExplainTaskAsync(Guid taskId, string code, CancellationToken ct = default);
   }
 }

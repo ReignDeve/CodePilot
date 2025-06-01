@@ -22,6 +22,13 @@ namespace Persistence.Repositories
                     .ContinueWith(t => (IReadOnlyList<CodingTask>)t.Result, ct);
 
     public Task<CodingTask?> FindByIdAsync(Guid id, CancellationToken ct = default)
-        => _db.Tasks.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id, ct);
+        => _db.Tasks
+          .FirstOrDefaultAsync(t => t.Id == id, ct);
+
+    public void Attach(CodingTask task)
+    {
+      _db.Tasks.Attach(task);
+      _db.Entry(task).State = EntityState.Modified;
+    }
   }
 }
