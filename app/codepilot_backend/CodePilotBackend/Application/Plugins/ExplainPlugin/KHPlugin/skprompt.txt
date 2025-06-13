@@ -1,0 +1,3 @@
+Kontext: {{description}}
+Code: {{code}}
+Gib einen kurzen Hinweis, wie der Lernende seinen Code verbessern kann, ohne die gesamte Lösung vorwegzunehmen.

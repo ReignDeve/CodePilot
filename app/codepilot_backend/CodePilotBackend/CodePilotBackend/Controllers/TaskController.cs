@@ -32,7 +32,7 @@ namespace CodePilot.Backend.WebAPI.Controllers
       return Ok(dto);
     }
 
-    // Controllers/TasksController.cs  (nur Ergänzung)
+
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<GetTasks>> GetById(Guid id, CancellationToken ct)
     {

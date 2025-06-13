@@ -12,12 +12,18 @@ namespace Application.Services
   {
     private readonly Kernel _kernel;
     private readonly KernelFunction _explain;
+    private readonly KernelFunction _krFeedback;
+    private readonly KernelFunction _kmFeedback;
+    private readonly KernelFunction _khFeedback;
 
     public CodeTutor(Kernel kernel)
     {
       _kernel = kernel;
-      // Plugin- und Funktions-Lookup:
-      _explain = _kernel.Plugins["Explain"]["ExplainExercise"];
+
+      _explain = _kernel.Plugins["ExplainPlugin"]["ExplainExercise"];
+      _krFeedback = _kernel.Plugins["KHPlugin"]["KHPlugin"];
+      _kmFeedback = _kernel.Plugins["KMPlugin"]["KMPlugin"];
+      _khFeedback = _kernel.Plugins["KRPlugin"]["KRPlugin"];
     }
 
     public async Task<string> ExplainWithContextAsync(
@@ -32,7 +38,48 @@ namespace Application.Services
       };
 
       var result = await _kernel.InvokeAsync(_explain, args, ct);
-      Console.Write("Result", result);
+      return result.GetValue<string>() ?? string.Empty;
+    }
+
+    public async Task<string> KRFeedbackAsync(
+        string code,
+        string description,
+        CancellationToken ct = default)
+    {
+      var args = new KernelArguments
+      {
+        ["code"] = code,
+        ["description"] = description
+      };
+      var result = await _kernel.InvokeAsync(_krFeedback, args, ct);
+      return result.GetValue<string>() ?? string.Empty;
+    }
+
+    public async Task<string> KMFeedbackAsync(
+        string code,
+        string description,
+        CancellationToken ct = default)
+    {
+      var args = new KernelArguments
+      {
+        ["code"] = code,
+        ["description"] = description
+      };
+      var result = await _kernel.InvokeAsync(_kmFeedback, args, ct);
+      return result.GetValue<string>() ?? string.Empty;
+    }
+
+    public async Task<string> KHFeedbackAsync(
+        string code,
+        string description,
+        CancellationToken ct = default)
+    {
+      var args = new KernelArguments
+      {
+        ["code"] = code,
+        ["description"] = description
+      };
+      var result = await _kernel.InvokeAsync(_khFeedback, args, ct);
       return result.GetValue<string>() ?? string.Empty;
     }
   }

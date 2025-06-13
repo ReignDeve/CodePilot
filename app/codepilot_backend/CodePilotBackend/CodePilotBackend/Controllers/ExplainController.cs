@@ -13,15 +13,9 @@ namespace CodePilot.Backend.WebAPI.Controllers
 
     public ExplainController(IExplainService explain) => _explain = explain;
 
-    // ───────────────────────────────
-    // Request-DTOs
-    // ───────────────────────────────
     public record ExplainCodeRequest(string Code);
     public record ExplainTaskRequest(Guid TaskId, string Code);
 
-    // ───────────────────────────────
-    // POST api/explain/code
-    // ───────────────────────────────
     [HttpPost("code")]
     public async Task<ActionResult<string>> PostForCode(
         [FromBody] ExplainCodeRequest req,
@@ -34,9 +28,6 @@ namespace CodePilot.Backend.WebAPI.Controllers
       return Ok(explanation);
     }
 
-    // ───────────────────────────────
-    // POST api/explain/task
-    // ───────────────────────────────
     [HttpPost("task")]
     public async Task<ActionResult<string>> PostForTask(
         [FromBody] ExplainTaskRequest req,
@@ -46,6 +37,48 @@ namespace CodePilot.Backend.WebAPI.Controllers
         return BadRequest("Code darf nicht leer sein.");
 
       var explanation = await _explain.ExplainTaskAsync(
+          req.TaskId, req.Code, ct);
+
+      return Ok(explanation);
+    }
+
+    [HttpPost("km")]
+    public async Task<ActionResult<string>> PostForKM(
+        [FromBody] ExplainTaskRequest req,
+        CancellationToken ct)
+    {
+      if (string.IsNullOrWhiteSpace(req.Code))
+        return BadRequest("Code darf nicht leer sein.");
+
+      var explanation = await _explain.KMFeedbackAsync(
+          req.TaskId, req.Code, ct);
+
+      return Ok(explanation);
+    }
+
+    [HttpPost("kr")]
+    public async Task<ActionResult<string>> PostForKR(
+        [FromBody] ExplainTaskRequest req,
+        CancellationToken ct)
+    {
+      if (string.IsNullOrWhiteSpace(req.Code))
+        return BadRequest("Code darf nicht leer sein.");
+
+      var explanation = await _explain.KRFeedbackAsync(
+          req.TaskId, req.Code, ct);
+
+      return Ok(explanation);
+    }
+
+    [HttpPost("kh")]
+    public async Task<ActionResult<string>> PostForKH(
+        [FromBody] ExplainTaskRequest req,
+        CancellationToken ct)
+    {
+      if (string.IsNullOrWhiteSpace(req.Code))
+        return BadRequest("Code darf nicht leer sein.");
+
+      var explanation = await _explain.KHFeedbackAsync(
           req.TaskId, req.Code, ct);
 
       return Ok(explanation);

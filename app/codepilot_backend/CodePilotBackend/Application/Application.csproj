@@ -9,6 +9,18 @@
   <ItemGroup>
     <None Include="Plugins\**\*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Plugins\KHPlugin\**" />
+    <Compile Remove="Plugins\KMPlugin\**" />
+    <Compile Remove="Plugins\KRPlugin\**" />
+    <EmbeddedResource Remove="Plugins\KHPlugin\**" />
+    <EmbeddedResource Remove="Plugins\KMPlugin\**" />
+    <EmbeddedResource Remove="Plugins\KRPlugin\**" />
+    <None Remove="Plugins\KHPlugin\**" />
+    <None Remove="Plugins\KMPlugin\**" />
+    <None Remove="Plugins\KRPlugin\**" />
+  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.5" />

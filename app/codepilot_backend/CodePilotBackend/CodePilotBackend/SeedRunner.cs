@@ -10,12 +10,12 @@ namespace CodePilot.Backend.WebAPI
 
     public async Task StartAsync(CancellationToken ct)
     {
-      Console.WriteLine("▶ SeedRunner gestartet");              // Log ①
+      Console.WriteLine("▶ SeedRunner gestartet");              
 
       using var scope = _sp.CreateScope();
       var repo = scope.ServiceProvider.GetRequiredService<ITaskRepository>();
 
-      await TaskSeeder.RunAsync(repo, ct);                      // eigentliche Arbeit
+      await TaskSeeder.RunAsync(repo, ct);                      
 
       Console.WriteLine("✔ SeedRunner fertig");
     }

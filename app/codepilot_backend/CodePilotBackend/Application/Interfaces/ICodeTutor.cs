@@ -13,6 +13,18 @@ namespace Application.Interfaces
           string code,
           string description,
           CancellationToken ct = default);
-    }
+    Task<string> KHFeedbackAsync(
+          string code,
+          string description,
+          CancellationToken ct = default);
+    Task<string> KMFeedbackAsync(
+          string code,
+          string description,
+          CancellationToken ct = default);
+    Task<string> KRFeedbackAsync(
+          string code,
+          string description,
+          CancellationToken ct = default);
+  }
 
 }

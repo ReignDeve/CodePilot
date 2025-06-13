@@ -35,8 +35,8 @@ namespace Persistence.DB
       {
         if (existing.TryGetValue(dto.uid, out var current))
         {
-          // Optional: hier Differences erkennen und aktualisieren
-          continue;                       // bereits vorhanden → überspringen
+
+          continue;
         }
 
         var entity = CodingTask.Create(
@@ -48,7 +48,6 @@ namespace Persistence.DB
 
         entity.ExternalId = dto.uid;
 
-        // Status erst nach der Erstellung setzen
         entity.SetStatus(Enum.Parse<Domain.Enums.TaskStatus>(dto.status, true));
 
         await repo.AddAsync(entity, ct);

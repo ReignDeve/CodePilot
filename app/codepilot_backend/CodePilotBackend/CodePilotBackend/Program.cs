@@ -18,25 +18,25 @@ var builder = WebApplication.CreateBuilder(args);
 var dataDir = Path.Combine(builder.Environment.ContentRootPath, "data");
 Directory.CreateDirectory(dataDir);
 
-// Add services to the container.
+
 builder.Services.AddCors(options =>
 {
   options.AddPolicy(name: "AllowFrontend",
       policy =>
       {
-        policy.WithOrigins("http://localhost:5173")   // dein FE-Dev-Server
+        policy.WithOrigins("http://localhost:5173")   
                 .AllowAnyHeader()
                 .AllowAnyMethod();
       });
 });
 
-// PasswordHasher für das alte ASP.NET Identity Interface
+
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
-// jetzt ist IPasswordHasher aufgelöst
+
 builder.Services.AddApplication(builder.Configuration);
 
-// Semantic-Kernel + ExplainService registrieren
+
 builder.Services.AddDbContext<CodePilotDbContext>(opt =>
     opt.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 
@@ -46,9 +46,6 @@ builder.Services.AddControllers();
 
 builder.Services.AddHostedService<SeedRunner>();
 
-
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c => {
   c.SwaggerDoc("v1", new OpenApiInfo
@@ -98,7 +95,7 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
   app.UseSwagger();

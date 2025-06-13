@@ -12,19 +12,29 @@ namespace Application.DependencyInjection
     public static IServiceCollection AddApplication(this IServiceCollection services,
                                                     IConfiguration cfg)
     {
-      // Basis = …/bin/Debug/net8.0/
-      var baseDir = AppContext.BaseDirectory;
 
-      // Ordner, in dem plugin.config.json liegt
-      var pluginDir = Path.Combine(baseDir, "Plugins", "Explain");
-
-      // Semantic Kernel (oder andere Application-Singletons)
       services.AddSingleton(sp =>
       {
         var builder = Kernel.CreateBuilder();
-        builder.AddOpenAIChatCompletion(cfg["OpenAI:Model"]!,
-                                        cfg["OpenAI:ApiKey"]!)
-                .Plugins.AddFromPromptDirectory(pluginDir);
+        builder
+          .AddOpenAIChatCompletion(
+              cfg["OpenAI:Model"]!,
+              cfg["OpenAI:ApiKey"]!
+          );
+        var baseDir = AppContext.BaseDirectory;
+        var root = Path.Combine(baseDir, "Plugins");
+        if (Directory.Exists(root))
+        {
+          foreach (var container in Directory.GetDirectories(root))
+          {
+            foreach (var functionDir in Directory.GetDirectories(container))
+            {
+              Console.WriteLine($"→ Loading SK plugin from {functionDir}");
+              builder.Plugins.AddFromPromptDirectory(functionDir);
+            }
+          }
+        }
+
         return builder.Build();
       });
 
