@@ -1,80 +1,67 @@
-![reactjs-vite-tailwindcss-boilerplate](https://user-images.githubusercontent.com/16243531/217138979-b854309c-4742-4275-a705-f9fec5158217.jpg)
+# CodePilot
 
-# React Tailwindcss Boilerplate build with Vite
+**A research-driven AI code tutoring platform**  
+*Bachelor’s Thesis Project*
 
-This is a boilerplate build with Vite, React 18, TypeScript, Vitest, Testing Library, TailwindCSS 3, Eslint and Prettier.
+---
 
-## What is inside?
+## 🚀 Overview
 
-This project uses many tools like:
+CodePilot is an interactive, AI-powered code tutoring system designed as part of a Bachelor’s thesis and research study. It leverages Microsoft’s [Semantic Kernel][sk] and large-language models to provide contextual, didactic feedback on C# programming exercises. CodePilot combines task management, user progress tracking, and modular feedback plugins to explore how AI-assisted guidance can improve novice programmers’ learning outcomes.
 
-- [Vite](https://vitejs.dev)
-- [ReactJS](https://reactjs.org)
-- [TypeScript](https://www.typescriptlang.org)
-- [Vitest](https://vitest.dev)
-- [Testing Library](https://testing-library.com)
-- [Tailwindcss](https://tailwindcss.com)
-- [Eslint](https://eslint.org)
-- [Prettier](https://prettier.io)
+---
 
-## Getting Started
+## 🎯 Key Features
 
-### Install
+- **Interactive Coding Exercises**  
+  A catalog of C# tasks (loops, array operations, etc.), each with description, starter code, and examples.
 
-Create the project.
+- **AI-Powered Feedback Plugins**  
+  - **ExplainExercise**: Concise, context-aware code explanations  
+  - **KRFeedback**: “Knowledge of Results” – Correct vs. Incorrect judgments  
+  - **KMFeedback**: “Knowledge of Mistakes” – Pinpoints specific errors  
+  - **KHFeedback**: “Knowledge of Hints” – Subtle, scaffolded improvement hints
 
-```bash
-pnpm dlx degit joaopaulomoraes/reactjs-vite-tailwindcss-boilerplate my-app
-```
+- **User Authentication & Progress**  
+  Secure registration and login (JWT), per-user task progress tracking stored in SQLite.
 
-Access the project directory.
+- **Clean Architecture**  
+  - **Domain**: Entities & business rules  
+  - **Application**: Services, use-cases, interfaces  
+  - **Persistence**: EF Core + SQLite repositories  
+  - **WebAPI**: ASP.NET Core controllers, JWT authentication  
+  - **Frontend**: React (Vite) with protected routes and dynamic data fetching
 
-```bash
-cd my-app
-```
+---
 
-Install dependencies.
+## 📦 Tech Stack
 
-```bash
-pnpm install
-```
+- **Backend**:  
+  - .NET 8 WebAPI (C#)  
+  - EF Core 9 & SQLite  
+  - JWT Authentication (ASP.NET Core Identity)  
+  - Microsoft Semantic Kernel & OpenAI Chat
 
-Serve with hot reload at <http://localhost:5173>.
+- **Frontend**:  
+  - React 18 + TypeScript  
+  - Vite  
+  - Radix UI themes & Resizable Panels
 
-```bash
-pnpm run dev
-```
+- **Dev Tools**:  
+  - Docker (optional)  
+  - GitHub Actions (CI/CD)  
+  - Swagger / OpenAPI
 
-### Lint
+---
 
-```bash
-pnpm run lint
-```
+## 🔧 Installation
 
-### Typecheck
+### Prerequisites
 
-```bash
-pnpm run typecheck
-```
+- [.NET 8 SDK](https://dotnet.microsoft.com/download)  
+- [Node.js 18+ & npm/Yarn](https://nodejs.org/)  
+- OpenAI API Key  
 
-### Build
+### Backend
 
-```bash
-pnpm run build
-```
-
-### Test
-
-```bash
-pnpm run test
-```
-
-View and interact with your tests via UI.
-
-```bash
-pnpm run test:ui
-```
-
-## License
-
-This project is licensed under the MIT License.
+Coming Soon....
