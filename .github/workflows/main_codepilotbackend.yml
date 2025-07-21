@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  PROJECT: app/codepilot_backend/CodePilotBackend.csproj #  <- Pfad zu deinem .csproj
+  PROJECT_PATH: app/codepilot_backend/CodePilotBackend.csproj # dein .csproj
 
 jobs:
   build:
