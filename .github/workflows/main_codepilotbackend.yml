@@ -33,7 +33,7 @@ jobs:
         working-directory: app/codepilot_backend/CodePilotBackend/CodePilotBackend
 
       - name: Publish
-        run: dotnet publish $PROJECT_PATH -c Release --no-build -o $PUBLISH_DIR
+        run: dotnet publish $PROJECT_PATH -c Release --no-build -o ${{ github.workspace }}/publish
         working-directory: app/codepilot_backend/CodePilotBackend/CodePilotBackend
 
       - name: Check output
