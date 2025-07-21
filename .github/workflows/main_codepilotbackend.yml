@@ -11,6 +11,7 @@ on:
 
 env:
   PROJECT_PATH: CodePilot.Backend.WebAPI.csproj # dein .csproj
+  PUBLISH_DIR: ${{ github.workspace }}/publish
 
 jobs:
   build:
@@ -32,14 +33,17 @@ jobs:
         working-directory: app/codepilot_backend/CodePilotBackend/CodePilotBackend
 
       - name: Publish
-        run: dotnet publish $PROJECT_PATH --configuration Release --no-build --output ./publish
+        run: dotnet publish $PROJECT_PATH --configuration Release --no-build --output $PUBLISH_DIR
         working-directory: app/codepilot_backend/CodePilotBackend/CodePilotBackend
+
+      - name: Check output
+        run: ls -R $PUBLISH_DIR
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: api-publish
-          path: app/codepilot_backend/CodePilotBackend/CodePilotBackend/publish/**
+          path: ${{ env.PUBLISH_DIR }}
 
   deploy:
     runs-on: windows-latest
@@ -54,7 +58,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: api-publish
-          path: app/codepilot_backend/CodePilotBackend/CodePilotBackend/publish/**
+          path: ./api-publish
 
       - name: Login to Azure
         uses: azure/login@v2
