@@ -1,11 +1,11 @@
 {
-    "testrequest": "https://localhost:7277/api/explain/task",
-    "kmfeedback": "https://localhost:7277/api/explain/km",
-    "krfeedback": "https://localhost:7277/api/explain/kr",
-    "khfeedback": "https://localhost:7277/api/explain/kh",
-    "getAllTasks": "https://localhost:7277/api/Tasks",
-    "getTaskById": "https://localhost:7277/api/Tasks/{id}",
-    "updateTaskStatus": "https://localhost:7277/api/Tasks/{id}/status",
-    "authRegister": "https://localhost:7277/api/auth/register",
-    "authLogin": "https://localhost:7277/api/auth/login"
+  "testrequest": "https://codepilotbackend-hkb0cdbce8bqcya5.westeurope-01.azurewebsites.net/api/explain/task",
+  "kmfeedback": "https://codepilotbackend-hkb0cdbce8bqcya5.westeurope-01.azurewebsites.net/api/explain/km",
+  "krfeedback": "https://codepilotbackend-hkb0cdbce8bqcya5.westeurope-01.azurewebsites.net/api/explain/kr",
+  "khfeedback": "https://codepilotbackend-hkb0cdbce8bqcya5.westeurope-01.azurewebsites.net/api/explain/kh",
+  "getAllTasks": "https://codepilotbackend-hkb0cdbce8bqcya5.westeurope-01.azurewebsites.net/api/Tasks",
+  "getTaskById": "https://codepilotbackend-hkb0cdbce8bqcya5.westeurope-01.azurewebsites.net/api/Tasks/{id}",
+  "updateTaskStatus": "https://codepilotbackend-hkb0cdbce8bqcya5.westeurope-01.azurewebsites.net/api/Tasks/{id}/status",
+  "authRegister": "https://codepilotbackend-hkb0cdbce8bqcya5.westeurope-01.azurewebsites.net/api/auth/register",
+  "authLogin": "https://codepilotbackend-hkb0cdbce8bqcya5.westeurope-01.azurewebsites.net/api/auth/login"
 }
