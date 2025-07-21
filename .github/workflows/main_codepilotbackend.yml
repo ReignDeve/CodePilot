@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  PROJECT_PATH: app/codepilot_backend/CodePilotBackend/CodePilotBackend/CodePilot.Backend.WebAPI.csproj # dein .csproj
+  PROJECT_PATH: CodePilot.Backend.WebAPI.csproj # dein .csproj
 
 jobs:
   build:
@@ -29,9 +29,11 @@ jobs:
       - run: |
           dotnet restore $PROJECT_PATH
           dotnet build   $PROJECT_PATH --configuration Release --no-restore
+        working-directory: app/codepilot_backend/CodePilotBackend/CodePilotBackend
 
       - name: Publish
         run: dotnet publish $PROJECT_PATH --configuration Release --no-build --output ./publish
+        working-directory: app/codepilot_backend/CodePilotBackend/CodePilotBackend
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
