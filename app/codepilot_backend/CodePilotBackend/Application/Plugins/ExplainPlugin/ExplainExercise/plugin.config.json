@@ -1,5 +1,0 @@
-{
-  "schema": 1,
-  "name": "ExplainExercise",
-  "description": "Gibt didaktisches Feedback zu einem C#-Codeausschnitt, basierend auf einer Aufgabenbeschreibung"
-}

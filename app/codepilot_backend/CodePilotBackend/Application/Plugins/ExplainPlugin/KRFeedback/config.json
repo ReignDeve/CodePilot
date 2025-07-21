@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "description": "Knowledge of result",
+  "execution_settings": {
+    "default": {
+      "functions": [
+        {
+          "name": "KRFeedback",
+          "description": "Explains a coding exercise",
+          "prompt": "skprompt.txt"
+        }
+      ]
+    }
+  }
+}

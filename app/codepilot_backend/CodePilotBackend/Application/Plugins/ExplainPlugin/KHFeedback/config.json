@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "description": "Knowledge on how to proceed",
+  "execution_settings": {
+    "default": {
+      "functions": [
+        {
+          "name": "KHFeedback",
+          "description": "Explains a coding exercise",
+          "prompt": "skprompt.txt"
+        }
+      ]
+    }
+  }
+}

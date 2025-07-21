@@ -23,17 +23,23 @@ namespace Application.DependencyInjection
           );
         var baseDir = AppContext.BaseDirectory;
         var root = Path.Combine(baseDir, "Plugins");
+
         if (Directory.Exists(root))
         {
-          foreach (var container in Directory.GetDirectories(root))
+          foreach (var pluginDir in Directory.GetDirectories(root))
           {
-            foreach (var functionDir in Directory.GetDirectories(container))
+            Console.WriteLine($"→ Loading SK plugin from {pluginDir}");
+            try
             {
-              Console.WriteLine($"→ Loading SK plugin from {functionDir}");
-              builder.Plugins.AddFromPromptDirectory(functionDir);
+              builder.Plugins.AddFromPromptDirectory(pluginDir);
+              // Note: GetPlugins is not available here, so we’ll check after build
+            }
+            catch (Exception ex)
+            {
+              Console.WriteLine($"→ Failed to load plugin from {pluginDir}: {ex.Message}");
             }
           }
-        }
+      }
 
         return builder.Build();
       });

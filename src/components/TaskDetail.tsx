@@ -5,7 +5,7 @@ import Description from './Description/Description'
 import CodeEditor from './Editor'
 import { askkh, askkm, askkr, askPilot } from 'services/QuestionService'
 import { getTask, TaskDto } from 'services/TaskService'
-import { Button } from '@radix-ui/themes'
+import { Button, Skeleton } from '@radix-ui/themes'
 import Markdown from 'react-markdown'
 import { setTaskStatus } from 'services/TaskService'
 
@@ -16,6 +16,7 @@ const TaskDetail: React.FC = () => {
   const [answer, setAnswer] = useState<string | null>(null)
   const [input, setInput] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
   const [asking, setAsking] = useState(false)
   const hasStartedRef = useRef(false)
 
@@ -32,6 +33,7 @@ const TaskDetail: React.FC = () => {
 
   /* --------- Pilot-Aufruf --------- */
   const handleSubmit = async () => {
+    setIsLoading(true)
     if (!task?.id || !code) {
       setAnswer('Task oder Code fehlt')
       return
@@ -40,10 +42,13 @@ const TaskDetail: React.FC = () => {
       setAnswer(await askPilot(task.id, code))
     } catch {
       setAnswer('Fehler beim Abruf')
+    } finally {
+      setIsLoading(false)
     }
   }
 
   const handlekmSubmit = async () => {
+    setIsLoading(true)
     if (!task?.id || !code) {
       setAnswer('Task oder Code fehlt')
       return
@@ -52,10 +57,13 @@ const TaskDetail: React.FC = () => {
       setAnswer(await askkm(task.id, code))
     } catch {
       setAnswer('Fehler beim Abruf')
+    } finally {
+      setIsLoading(false)
     }
   }
 
   const handlekrSubmit = async () => {
+    setIsLoading(true)
     if (!task?.id || !code) {
       setAnswer('Task oder Code fehlt')
       return
@@ -64,9 +72,12 @@ const TaskDetail: React.FC = () => {
       setAnswer(await askkr(task.id, code))
     } catch {
       setAnswer('Fehler beim Abruf')
+    } finally {
+      setIsLoading(false)
     }
   }
   const handlekhSubmit = async () => {
+    setIsLoading(true)
     if (!task?.id || !code) {
       setAnswer('Task oder Code fehlt')
       return
@@ -75,6 +86,8 @@ const TaskDetail: React.FC = () => {
       setAnswer(await askkh(task.id, code))
     } catch {
       setAnswer('Fehler beim Abruf')
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -152,7 +165,7 @@ const TaskDetail: React.FC = () => {
                       <input
                         className="m-2 w-full flex-1 border-none bg-[#1a1a1a] p-2 text-white outline-none"
                         type="text"
-                        placeholder="Ask a question..."
+                        placeholder="this feature is not implemented yet."
                         autoFocus
                         maxLength={200}
                         value={input ?? ''}
@@ -215,11 +228,13 @@ const TaskDetail: React.FC = () => {
                   </>
                 )}
               </div>
-              {answer && (
-                <pre className="mt-4 whitespace-pre-wrap rounded bg-[#ffffff1a] p-2 text-white">
+              {isLoading ? (
+                <div className="mt-4 h-16 w-full rounded bg-[length:200%_100%] bg-[position:0_0] bg-gradient-to-r from-[#ffffff14] via-[#ffffff33] to-[#ffffff14] animate-shimmer" />
+              ) : answer ? (
+                <pre className="mt-4 whitespace-pre-wrap rounded bg-[#ffffff1a] p-2 text-white overflow-y-scroll">
                   <Markdown>{answer}</Markdown>
                 </pre>
-              )}
+              ) : null}
             </div>
           </Panel>
         </PanelGroup>

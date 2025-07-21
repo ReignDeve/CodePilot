@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "description": "Gibt didaktisches Feedback zu einem C#-Codeausschnitt, basierend auf einer Aufgabenbeschreibung",
+  "execution_settings": {
+    "default": {
+      "functions": [
+        {
+          "name": "ExplainExercise",
+          "description": "Explains a coding exercise",
+          "prompt": "skprompt.txt"
+        }
+      ]
+    }
+  }
+}

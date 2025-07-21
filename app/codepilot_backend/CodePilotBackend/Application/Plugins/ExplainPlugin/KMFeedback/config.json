@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "description": "Knowledge about mistakes",
+  "execution_settings": {
+    "default": {
+      "functions": [
+        {
+          "name": "KMFeedback",
+          "description": "Explains a coding exercise",
+          "prompt": "skprompt.txt"
+        }
+      ]
+    }
+  }
+}

@@ -1,3 +1,3 @@
-Kontext: {{description}}
-Code: {{code}}
+Kontext: {{$description}}
+Code: {{$code}}
 Identifiziere die Stellen im Code, die nicht zur Aufgabenstellung passen. Nenne nur die fehlerhaften Zeilen oder Ausdrücke, ohne sie zu korrigieren.

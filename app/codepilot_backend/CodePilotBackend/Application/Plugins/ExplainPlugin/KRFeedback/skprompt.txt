@@ -1,4 +1,3 @@
-# KRFeedback
-Kontext: {{description}}
-Code: {{code}}
+Kontext: {{$description}}
+Code: {{$code}}
 Beurteile bitte kurz, ob der Code zur Aufgabenstellung korrekt ist oder nicht. Antworte nur mit „Korrekt“ oder „Nicht korrekt“.
