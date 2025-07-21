@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: api-publish
-          path: ./publish
+          path: app/codepilot_backend/CodePilotBackend/CodePilotBackend/publish/**
 
   deploy:
     runs-on: windows-latest
@@ -54,6 +54,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: api-publish
+          path: app/codepilot_backend/CodePilotBackend/CodePilotBackend/publish/**
 
       - name: Login to Azure
         uses: azure/login@v2
