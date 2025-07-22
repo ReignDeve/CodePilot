@@ -47,7 +47,8 @@ builder.Services.AddControllers();
 builder.Services.AddHostedService<SeedRunner>();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c => {
+builder.Services.AddSwaggerGen(c =>
+{
   c.SwaggerDoc("v1", new OpenApiInfo
   {
     Title = "JWTToken_Auth_API",
@@ -96,11 +97,10 @@ builder.Services.AddAuthentication(options =>
 var app = builder.Build();
 
 
-if (app.Environment.IsDevelopment())
-{
-  app.UseSwagger();
-  app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 
