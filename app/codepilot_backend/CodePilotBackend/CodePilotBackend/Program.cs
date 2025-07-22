@@ -14,37 +14,40 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// ---------- 1. SQLite-Pfad dynamisch festlegen ----------
+string dbPath;
+var home = Environment.GetEnvironmentVariable("HOME")   // Linux App Service
+        ?? Environment.GetEnvironmentVariable("USERPROFILE"); // Windows
 
-var dataDir = Path.Combine(builder.Environment.ContentRootPath, "data");
-Directory.CreateDirectory(dataDir);
+if (!string.IsNullOrEmpty(home))
+{
+  dbPath = Path.Combine(home, "data", "codepilot.db");   // Azure-Pfad
+}
+else
+{
+  dbPath = Path.Combine(builder.Environment.ContentRootPath, "data", "codepilot.db"); // lokal
+}
+Directory.CreateDirectory(Path.GetDirectoryName(dbPath)!);
 
-
+// ---------- 2. Services ----------
 builder.Services.AddCors(options =>
 {
-  options.AddPolicy(name: "AllowFrontend",
-      policy =>
-      {
-        policy.WithOrigins("https://orange-hill-0ae627f03.1.azurestaticapps.net/")
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-      });
+  options.AddPolicy("AllowFrontend", p =>
+      p.WithOrigins("https://orange-hill-0ae627f03.1.azurestaticapps.net", "http://localhost:5173") // ← ohne Slash
+       .AllowAnyHeader()
+       .AllowAnyMethod());
 });
-
 
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
-
-builder.Services.AddApplication(builder.Configuration);
-
-
 builder.Services.AddDbContext<CodePilotDbContext>(opt =>
-    opt.UseSqlite(builder.Configuration.GetConnectionString("Default")));
+    opt.UseSqlite($"Data Source={dbPath}"));
 
 builder.Services.AddPersistence(builder.Configuration);
-builder.Services.AddApplication(builder.Configuration);
+builder.Services.AddApplication(builder.Configuration);   // ← nur einmal
 builder.Services.AddControllers();
-
 builder.Services.AddHostedService<SeedRunner>();
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -98,17 +101,19 @@ var app = builder.Build();
 
 
 
+using (var scope = app.Services.CreateScope())
+{
+  var db = scope.ServiceProvider.GetRequiredService<CodePilotDbContext>();
+  db.Database.Migrate();                                                                     
+}
 app.UseSwagger();
 app.UseSwaggerUI();
 
-
 app.UseHttpsRedirection();
-
 app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
 app.Run();
 
