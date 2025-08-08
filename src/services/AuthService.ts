@@ -37,3 +37,4 @@ export async function register(dto: RegisterDto): Promise<void> {
     throw new Error(text || 'Registration failed')
   }
 }
+

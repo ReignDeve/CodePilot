@@ -28,11 +28,8 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-900 text-white">
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4 rounded bg-gray-800 p-6 shadow-lg"
-      >
+    <div className="flex h-screen items-center justify-center">
+      <form onSubmit={handleSubmit} className="space-y-4 rounded p-6 shadow-lg">
         <h2 className="text-center text-2xl font-bold">
           {isRegister ? 'Register' : 'Login'}
         </h2>

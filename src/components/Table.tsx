@@ -35,16 +35,16 @@ const TasksTable: React.FC = () => {
   return (
     <div className="mt-16 flex justify-center px-4">
       <Table.Root
-        className="w-4/5  overflow-hidden rounded-lg bg-[#1a1a1a] shadow-lg"
+        className="w-3/5  overflow-hidden rounded-lg shadow-lg"
         variant="ghost"
       >
         {/* Header */}
         <Table.Header className="border-b border-[#333]">
-          <Table.Row className="grid grid-cols-4 text-left bg-[#1a1a1a]">
-            {['Status', 'Title', 'Difficulty', 'Solution'].map((h) => (
+          <Table.Row className="grid grid-cols-3 text-left">
+            {['Status', 'Title', 'Difficulty'].map((h) => (
               <Table.ColumnHeaderCell
                 key={h}
-                className="px-6 py-3 text-xs font-semibold uppercase tracking-wide text-gray-200"
+                className="px-6 py-3 text-xs font-semibold uppercase tracking-wide"
               >
                 {h}
               </Table.ColumnHeaderCell>
@@ -57,7 +57,7 @@ const TasksTable: React.FC = () => {
           {tasks.map((t) => (
             <Table.Row
               key={t.id}
-              className="grid cursor-pointer grid-cols-4 transition-colors duration-150 odd:bg-[#1b1b1b] even:bg-[#1e1e1e] hover:bg-[#222]"
+              className="grid cursor-pointer grid-cols-3 transition-colors duration-150"
               onClick={() => navigate(`/task/${t.id}`)}
             >
               <Table.RowHeaderCell className="px-6 py-3">
@@ -68,15 +68,15 @@ const TasksTable: React.FC = () => {
                   {t.status.replace(/([A-Z])/g, ' $1').trim()}
                 </Badge>
               </Table.RowHeaderCell>
-              <Table.Cell className="px-6 py-3 text-sm text-gray-100 whitespace-nowrap">
+              <Table.Cell className="px-6 py-3 text-sm  whitespace-nowrap">
                 {t.title}
               </Table.Cell>
-              <Table.Cell className="px-6 py-3 text-sm text-gray-100 capitalize whitespace-nowrap">
+              <Table.Cell className="px-6 py-3 text-sm  capitalize whitespace-nowrap">
                 {t.difficulty}
               </Table.Cell>
-              <Table.Cell className="px-6 py-3 text-sm text-gray-100">
+              {/* <Table.Cell className="px-6 py-3 text-sm ">
                 {t.solution}
-              </Table.Cell>
+              </Table.Cell> */}
             </Table.Row>
           ))}
         </Table.Body>
