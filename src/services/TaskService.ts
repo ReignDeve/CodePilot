@@ -21,8 +21,11 @@ export async function getTasks(): Promise<TaskDto[]> {
     }
   })
   if (!res.ok) {
-    if (res.status === 401)
-      throw new Error('Nicht autorisiert – bitte einloggen')
+    if (res.status === 401) {
+      localStorage.removeItem('jwt')
+      window.location.replace('/login')
+      return Promise.reject(new Error('Nicht autorisiert – bitte einloggen'))
+    }
     throw new Error(await res.text())
   }
   return res.json()

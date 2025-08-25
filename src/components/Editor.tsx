@@ -1,5 +1,5 @@
 // CodeEditor.tsx
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import Editor, { OnChange as MonacoOnChange } from '@monaco-editor/react'
 import type {
   EditorProps as MonacoEditorProps,
@@ -61,7 +61,7 @@ const CodeEditor: React.FC<CodeEditorProps & { showStatusBar?: boolean }> = ({
       />
 
       {/* optionale Statusbar */}
-      <div className="text-xs px-3 py-1 select-none justify-end flex">
+      <div className="flex select-none justify-end px-3 py-1 text-xs">
         Ln&nbsp;{cursorPos.line},&nbsp;Col&nbsp;{cursorPos.column}
       </div>
     </div>

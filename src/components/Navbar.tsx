@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react'
 import {
   NavigationMenu,
@@ -8,10 +9,8 @@ import {
 import * as Avatar from '@radix-ui/react-avatar'
 import * as Popover from '@radix-ui/react-popover'
 import { Link, useNavigate } from 'react-router-dom'
-import { Flex, Box, Button, IconButton } from '@radix-ui/themes'
-import { SunIcon, MoonIcon } from '@radix-ui/react-icons'
+import { Flex, Button } from '@radix-ui/themes'
 import { useAuth } from 'contexts/AuthContext'
-import { useEffect, useState } from 'react'
 
 interface Props {
   appearance: 'light' | 'dark'
@@ -20,7 +19,7 @@ interface Props {
 
 const Navigation: React.FC<Props> = ({ appearance, onToggleAppearance }) => {
   const navigate = useNavigate()
-  const { logout } = useAuth()
+  const { token, logout } = useAuth()
   const [error, setError] = React.useState<string | null>(null)
 
   const handleLogout = async () => {
@@ -58,8 +57,8 @@ const Navigation: React.FC<Props> = ({ appearance, onToggleAppearance }) => {
         </NavigationMenuList>
       </NavigationMenu>
       {/* Center / Spacer */}
-      <div className="flex items-center gap-3 z-40">
-        <IconButton
+      <div className="z-40 flex items-center gap-3">
+        {/* <IconButton
           aria-label="toggle dark / light"
           variant="ghost"
           size="3"
@@ -70,7 +69,7 @@ const Navigation: React.FC<Props> = ({ appearance, onToggleAppearance }) => {
           }
         >
           {appearance == 'dark' ? <SunIcon /> : <MoonIcon />}
-        </IconButton>
+        </IconButton> */}
 
         {/* Rechts: Avatar als Popover‑Trigger */}
         <Popover.Root>
@@ -93,15 +92,21 @@ const Navigation: React.FC<Props> = ({ appearance, onToggleAppearance }) => {
           <Popover.Content
             sideOffset={8}
             align="end"
-            className="rounded-lg p-4 shadow-lg z-40"
+            className="z-40 rounded-lg p-4 shadow-lg"
           >
             <Flex direction="column" gap="3" className="min-w-[150px]">
-              <Button onClick={handleLogout} variant="solid">
-                Sign Out
-              </Button>
-              <Button onClick={handleLogin} className="text-sm hover:underline">
-                Sign In
-              </Button>
+              {token ? (
+                <Button onClick={handleLogout} variant="solid">
+                  Sign Out
+                </Button>
+              ) : (
+                <Button
+                  onClick={handleLogin}
+                  className="text-sm hover:underline"
+                >
+                  Sign In
+                </Button>
+              )}
               {error && (
                 <span className="mt-2 text-xs text-red-500">{error}</span>
               )}

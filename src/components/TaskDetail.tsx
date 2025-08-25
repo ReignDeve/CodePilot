@@ -141,7 +141,7 @@ const TaskDetail: React.FC = () => {
   return (
     <div className="-mt-12 h-full">
       <div>
-        <section className="mt-[-5] gap-2 flex justify-center pr-2 w-1/2 mx-auto">
+        <section className="mx-auto mt-[-5] flex w-1/2 justify-center gap-2 pr-2">
           <Button className="cursor-pointer">
             <PlayIcon />
           </Button>
@@ -172,13 +172,13 @@ const TaskDetail: React.FC = () => {
               <Tabs.List className="flex shrink-0 border-b border-gray-200 dark:border-white/10">
                 <Tabs.Trigger
                   value="description"
-                  className="px-3 py-2 text-sm font-medium data-[state=active]:border-b-2 data-[state=active]:border-blue-500 focus:outline-none"
+                  className="px-3 py-2 text-sm font-medium focus:outline-none data-[state=active]:border-b-2 data-[state=active]:border-blue-500"
                 >
                   Description
                 </Tabs.Trigger>
                 <Tabs.Trigger
                   value="solution"
-                  className="px-3 py-2 text-sm font-medium data-[state=active]:border-b-2 data-[state=active]:border-blue-500 focus:outline-none"
+                  className="px-3 py-2 text-sm font-medium focus:outline-none data-[state=active]:border-b-2 data-[state=active]:border-blue-500"
                   disabled
                 >
                   <LockClosedIcon className="mr-2" />
@@ -225,7 +225,7 @@ const TaskDetail: React.FC = () => {
                 className="flex flex-col overflow-hidden rounded shadow"
               >
                 {/* Kopfzeile */}
-                <div className="flex items-center justify-between px-2 py-2">
+                <div className="flex items-center justify-between p-2">
                   <h2 className="text-xl font-semibold">Code</h2>
                   <IconButton variant="ghost" onClick={toggleFullscreen}>
                     <EnterFullScreenIcon />
