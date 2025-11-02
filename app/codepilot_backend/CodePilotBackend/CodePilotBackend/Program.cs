@@ -33,7 +33,7 @@ Directory.CreateDirectory(Path.GetDirectoryName(dbPath)!);
 builder.Services.AddCors(options =>
 {
   options.AddPolicy("AllowFrontend", p =>
-      p.WithOrigins("https://delightful-river-0f14c5103.3.azurestaticapps.net/", "http://localhost:5173") // ← ohne Slash
+      p.WithOrigins("https://delightful-river-0f14c5103.3.azurestaticapps.net", "http://localhost:5173") // ← ohne Slash
        .AllowAnyHeader()
        .AllowAnyMethod());
 });
