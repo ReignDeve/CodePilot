@@ -24,16 +24,16 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Restore Dependencies
-        run: dotnet restore CodePilot.Backend.WebAPI.csproj
+        run: dotnet restore WebAPI.csproj
         working-directory: app/codepilot_backend/CodePilotBackend/CodePilotBackend
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release --no-restore CodePilot.Backend.WebAPI.csproj
+        run: dotnet build --configuration Release --no-restore WebAPI.csproj
         working-directory: app/codepilot_backend/CodePilotBackend/CodePilotBackend
 
       # Veröffentlichen des Builds
       - name: Publish Artifact
-        run: dotnet publish CodePilot.Backend.WebAPI.csproj -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        run: dotnet publish WebAPI.csproj -c Release -o "${{env.DOTNET_ROOT}}/myapp"
         working-directory: app/codepilot_backend/CodePilotBackend/CodePilotBackend
 
       - name: Upload artifact for deployment job
@@ -71,3 +71,4 @@ jobs:
           package: .
 
           
+
