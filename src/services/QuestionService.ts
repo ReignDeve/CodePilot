@@ -14,22 +14,64 @@ export interface PilotResponse {
  * @returns Antwort-String vom Server
  * @throws Error, wenn der Request fehlschlägt
  */
-export async function askPilot(taskId: string, code: string): Promise<string> {
+export async function askPilot(
+  taskId: string,
+  code: string,
+  question?: string
+): Promise<string> {
   const token = localStorage.getItem('jwt')
-  const url = routes.testrequest
+  const url = routes.question
+  const payload = {
+    taskId,
+    code,
+    ...(question ? { question } : {})
+  }
   const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`
     },
-    body: JSON.stringify({ taskId, code })
+    body: JSON.stringify(payload)
   })
 
   if (!response.ok) {
-    const text = await response.text()
+    const responseText = await response.text()
     throw new Error(
-      `Request an ${url} fehlgeschlagen: ${response.status} ${response.statusText} - ${text}`
+      `Request an ${url} fehlgeschlagen: ${response.status} ${response.statusText} - ${responseText}`
+    )
+  }
+
+  // Antwort als Text (string) zurückliefern
+  const result = await response.text()
+  return result
+}
+
+export async function askGeneral(
+  taskId: string,
+  code: string,
+  question?: string
+): Promise<string> {
+  const token = localStorage.getItem('jwt')
+  const url = routes.testrequest
+  const payload = {
+    taskId,
+    code,
+    ...(question ? { question } : {})
+  }
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(payload)
+  })
+
+  if (!response.ok) {
+    const responseText = await response.text()
+    throw new Error(
+      `Request an ${url} fehlgeschlagen: ${response.status} ${response.statusText} - ${responseText}`
     )
   }
 

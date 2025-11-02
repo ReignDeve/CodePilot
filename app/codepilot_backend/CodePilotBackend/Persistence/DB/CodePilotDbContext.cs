@@ -10,10 +10,11 @@ public class CodePilotDbContext : DbContext
   public DbSet<CodingTask> Tasks => Set<CodingTask>();
   public DbSet<User> Users => Set<User>();
   public DbSet<UserTaskProgress> UserTaskProgress => Set<UserTaskProgress>();
+  public DbSet<TaskInvocation> Invocations => Set<TaskInvocation>();
 
   protected override void OnModelCreating(ModelBuilder mb)
   {
-    // bestehende Task-Mapping…
+    // CodingTask
     mb.Entity<CodingTask>(e =>
     {
       e.ToTable("Tasks");
@@ -24,6 +25,18 @@ public class CodePilotDbContext : DbContext
       e.Property(t => t.Code).IsRequired();
       e.Property(t => t.Description);
       e.Property(t => t.Solution);
+
+      // NEU: 1-n zu TaskInvocation
+      e.HasMany(t => t.Invocations);
+    });
+
+    // TaskInvocation
+    mb.Entity<TaskInvocation>(e =>
+    {
+      e.ToTable("TaskInvocations");
+      e.HasKey(i => i.Id);
+      e.Property(i => i.Value).IsRequired();
+      e.Property(i => i.Order).HasDefaultValue(0);
     });
 
     // User
@@ -34,6 +47,9 @@ public class CodePilotDbContext : DbContext
       e.HasIndex(u => u.UserName).IsUnique();
       e.Property(u => u.UserName).IsRequired();
       e.Property(u => u.PasswordHash).IsRequired();
+      e.Property(u => u.LearningPreferences)
+        .HasColumnType("TEXT")
+        .IsRequired(); 
     });
 
     // Progress

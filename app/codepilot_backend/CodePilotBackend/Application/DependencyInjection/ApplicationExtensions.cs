@@ -44,9 +44,10 @@ namespace Application.DependencyInjection
         return builder.Build();
       });
 
-      services.AddSingleton<ICodeTutor, CodeTutor>();
+      services.AddScoped<ICodeTutor, CodeTutor>();
       services.AddScoped<IExplainService, ExplainService>();
       services.AddScoped<IAuthService, AuthService>();
+      services.AddScoped<ISummaryService, SummaryService>();
       return services;
     }
   }

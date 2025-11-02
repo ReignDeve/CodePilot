@@ -1,0 +1,121 @@
+﻿Wo,Prompt,Input,Output 1,Output 2,Output 3,Output 4,Output 5,Output 6,Output 7,Output 8,Output 9,Output 10
+"Allgemeiner
+Temperature: Default
+","Kontext: {{$description}}
+Lernpräferenzen: {{$preferences}}.
+Code: {{$code}}
+
+Gib didaktisches Feedback, das den Lernenden beim Verständnis und bei der Weiterentwicklung seines Codes unterstützt, ohne die Lösung direkt zu verraten.
+
+Anweisungen:
+""Konzentriere dich auf funktionale, logische und konzeptionelle Aspekte.""
+""Wenn der Code fehlerhaft ist, gib Hinweise, was überprüft oder verbessert werden sollte.""
+""Wenn der Code korrekt und lauffähig ist, gib Denkanstöße zur Optimierung, z. B. zu Lesbarkeit, Struktur oder Effizienz.""
+""Erkläre nicht zu viel: Formuliere prägnant in maximal 3–4 Sätzen.""
+""Fördere Eigenständigkeit – der Lernende soll selbst weiterdenken können.""
+""Verwende abwechslungsreiche, passende Formulierungen, vermeide Wiederholungen und Floskeln.""
+
+Ziel:
+Gib kurzes, hilfreiches und lernorientiertes Feedback, das sowohl bei Fehlern als auch bei funktionierendem Code sinnvoll weiterhilft.
+","public int[] IncrementArray(int[] nums) {
+int[] result = new int[nums.Length];
+for (int i = 0; i <= nums.Length; i++)
+{
+result[i] = nums[i] + 1;
+}
+}","Schau dir die Schleifenbedingung an: Mit „<= nums.Length“ wanderst du einmal über das Ende von `nums` und `result` hinaus. Ändere sie auf `< nums.Length`, damit `i` nur von 0 bis Length-1 zählt. Teste deinen Code besonders mit einem Einzelelement-Array, um nachzuvollziehen, wie viele Durchläufe nötig sind. Hast du dabei noch Unklarheiten zur Array-Indizierung oder Terminologie, die wir vertiefen sollen?","Dein Loop läuft von 0 bis eins zu viel – mit `i <= nums.Length` greifst du einmal außerhalb des Arrays zu, ändere es zu `i < nums.Length`.
+Dir fehlt außerdem am Ende ein `return result;`, sodass dein neues Array auch wirklich zurückgegeben wird.
+Überlege dir beim nächsten Mal: Wie lauten die gültigen Indexgrenzen eines Arrays, und muss jede Methode mit Rückgabewert tatsächlich ein Ergebnis liefern?
+Versuche jetzt, diese beiden Hinweise selbst im Code umzusetzen.","Hier ein kurzer Denkanstoß:Deine Schleifenbedingung i <= nums.Length verursacht beim letzten Durchlauf eine IndexOutOfRange-Exception, da Arrays in C# null-basiert sind.Überlege, wie sich Startindex (0) und Länge (nums.Length) auf die Abbruchbedingung auswirken müssen.Wenn du die Abbruchbedingung entsprechend korrigiert hast, erfüllt dein Code die Aufgabe.Möchtest du zusätzlich erkunden, wie sich dieselbe Logik mit LINQ in einer Zeile ausdrücken ließe?","Deine Schleifenbedingung geht über das Ende des Arrays hinaus – in C# sind Indizes 0-basiert, daher sollte geprüft werden, ob `i < nums.Length` anstatt `<=`. Außerdem fehlt am Ende eine Rückgabe des neu befüllten Arrays. Überlege dir, warum gerade diese beiden Punkte nötig sind und teste nach der Anpassung erneut.","Deine Schleifenbedingung „i <= nums.Length“ führt beim letzten Durchlauf zu einem IndexOutOfRange – überlege, welcher Vergleichsoperator hier die richtige Abbruchbedingung ist.Fehlt dir am Ende nicht ein „return result;“, damit das neu befüllte Array auch tatsächlich zurückgegeben wird?Teste nach den Anpassungen mit einem Ein-Element-Array (z. B. [5]), um zu überprüfen, dass deine Indizes immer gültig sind.Wenn beides funktioniert, überlege, wie du die Methode strukturell oder durch weitere Tests noch robuster gestalten könntest.","Deine Schleifenbedingung „i <= nums.Length“ führt zu einem Index-Overflow. Überlege, welche Vergleichsoperation den gültigen Bereich abdeckt.
+- Teste dein Programm gezielt mit Arrays der Länge 1 und mit mehreren Elementen, um sicherzustellen, dass keine Ausnahmen geworfen werden.
+- Verifiziere abschließend, dass das Ergebnis-Array die gleiche Länge hat und jedes Element tatsächlich um 1 erhöht wurde.
+Hast du die Anpassung zur Indexbegrenzung nachvollzogen? Welche Stelle bereitet dir dabei noch Schwierigkeiten?","Dein Code führt zu einer IndexOutOfRangeException, weil die Schleife von 0 bis einschließlich nums.Length läuft.Überlege, welche Indizes in einem Array gültig sind – der letzte Index ist immer Length – 1.Passe die Abbruchbedingung so an, dass du nicht über das Ende hinaus iterierst, und teste noch einmal.Als Denkanstoß: Mit einer foreachSchleife oder LINQ ließe sich die Indexverwaltung sogar ganz umgehen und der Code bleibt schlank.","Schau dir die Schleifenbedingung genau an: Führt i <= nums.Length dazu, dass du jemals über das Ende des Arrays hinaus zugreifst?Denk darüber nach, wie du die Abbruchbedingung so formulierst, dass i nur gültige Indizes verwendet.Deine Methode erzeugt zwar result, aber was fehlt, damit der aufgerufene Code das veränderte Array auch erhält?Teste anschließend mit einem kleinen Beispiel (z. B. [0,1]) und prüfe, ob deine Grenzen und die Rückgabe nun passen.","Mir fällt auf, dass deine Schleife mit i <= nums.Length ein Element zu viel durchläuft und so einen IndexOutOfRange-Fehler provoziert.Überlege, wie oft du wirklich iterieren musst, damit Index (0…) und Array-Länge (Length) im Einklang stehen.Denk daran: Arrays in C# sind nullbasiert – das letzte Element liegt bei Length – 1.Wo genau bist du dir hinsichtlich der Schleifenbedingung oder der Indexierung unsicher?","1. Überlege, welche gültigen Indizes ein Array der Länge n hat. Hinweis: Prüfe, ob `i <= nums.Length` oder `i < nums.Length` verwendet werden sollte.
+2. Achte darauf, dass du nach der Schleife auch etwas zurücklieferst. Hinweis: Fehlt hier eine `return`-Anweisung?
+3. Mini-Beispiel zur Schleifenbedingung: ```csharp int[] arr = {1, 2}; for (int i = 0; i < arr.Length; i++) Console.WriteLine(i); // Ausgabe: 0, 1
+Begriffsklärung: „IndexOutOfRange“ entsteht, wenn man i == arr.Length verwendet.Gehe Schritt für Schritt durch, was result[i] = nums[i] + 1; bewirkt.Hinweis: Jeder Originalwert soll um 1 erhöht im neuen Array stehen.Fasse zusammen und frage dich:– Ist die Schleifenbegrenzung korrekt?– Wirst du das Ergebnis zurückgeben?Verstehst du jeden Punkt? Oder benötigst du mehr Erläuterung?Wo genau bist du unsicher oder welche Terminologie ist schwierig?"
+"Plugin KH
+Temperature: Default","KH ( Knowledge on how to proceed )
+
+Kontext: {{$description}}
+Lernpräferenzen: {{$preferences}}.
+Code: {{$code}}
+
+Analysiere den Code und gib einen kurzen, didaktisch sinnvollen Hinweis, wie der Lernende weiter vorgehen kann, um seinen Code funktional oder logisch zu verbessern.
+
+Anweisungen:
+""Gib nur einen klaren, prozessbezogenen Hinweis (z. B. was überprüft, angepasst oder ergänzt werden sollte).""
+""Keine vollständigen Lösungen oder Codekorrekturen nennen.""
+""Fokussiere dich auf funktionale und logische Aspekte; erwähne Stil nur, wenn er das Verständnis fördert.""
+""Das Feedback soll kurz und präzise sein – maximal 4 Sätze, möglichst ein bis zwei.""
+""Formuliere konkret, vermeide vage Aussagen wie „Überprüfe deinen Code“.""
+""Fördere Eigenständigkeit: der Lernende soll selbst den nächsten Schritt finden können.""
+
+Beispielhafte Formulierungen:
+„Überprüfe, ob deine Bedingung wirklich alle erwarteten Fälle berücksichtigt.“
+„Achte darauf, dass die Methode immer einen Rückgabewert liefert.“
+„Füge eine Prüfung hinzu, um fehlerhafte Eingaben abzufangen.“
+
+Ziel:
+Gib dem Lernenden einen klaren Hinweis auf den nächsten sinnvollen Schritt, ohne die Lösung vorwegzunehmen.
+","public int[] IncrementArray(int[] nums) {
+int[] result = new int[nums.Length];
+for (int i = 0; i <= nums.Length; i++)
+{
+result[i] = nums[i] + 1;
+}
+}","Überdenke deine Schleifenbedingung – gültige Indizes reichen nur von 0 bis nums.Length–1, nicht bis nums.Length.","Überprüfe deine Schleifenbedingung: Mit i <= nums.Length sprichst du einen Index außerhalb des Arrays an, passe sie so an, dass nur gültige Indizes durchlaufen werden.","Überdenke die Schleifenbedingung: Prüfe, ob i <= nums.Length einen Index anspricht, der außerhalb des Arrays liegt, und passe sie so an, dass alle Elemente genau einmal durchlaufen werden.","Überprüfe deine Schleifenbedingung: Stelle sicher, dass der Zähler niemals den letzten gültigen Index überschreitet (also „i < nums.Length“ statt „i <= nums.Length“), damit du keine IndexOutOfRangeException erhältst.","Überprüfe deine Schleifenbedingung: Mit `i <= nums.Length` greifst du einmal zu oft auf das Array zu und verursachst einen IndexOutOfRange.
+Passe die Abbruchbedingung so an, dass `i < nums.Length` gilt und du nur gültige Indizes verwendest.","Überprüfe deine Schleifenbedingung: Stelle sicher, dass du nur bis zum letzten gültigen Index (nums.Length–1) iterierst, damit kein IndexOutOfRange auftritt.",Überdenke deine Schleifenbedingung: Die Verwendung von „<= nums.Length“ lässt „i“ einmal zu oft laufen und führt zu einem IndexOutOfRange-Fehler.,"Überprüfe deine Schleifenbedingung: Mit `i <= nums.Length` greifst du einmal zu oft auf das Array zu und verursachst einen IndexOutOfRange-Fehler.
+Passe die Bedingung so an, dass nur gültige Indizes durchlaufen werden.","Überprüfe deine Schleifenbedingung: Bei i <= nums.Length durchläufst du einen Index zu viel und erreichst außerhalb des Arrays. Passe die Abbruchbedingung so an, dass i nur bis zum letzten gültigen Index läuft.",Überprüfe deine Schleifenbedingung: Läufst du aktuell wirklich nur über gültige Indizes oder greifst du so versehentlich einmal zu weit aufs Array zu?
+"Plugin KM 
+Temperature: Default","KM (Knowledge about Mistakes) Prompt
+
+Kontext: {{$description}}
+Lernpräferenzen: {{$preferences}}.
+Code: {{$code}}
+
+Analysiere den Code und weise auf Fehler oder Abweichungen von der Aufgabenstellung hin, ohne sie zu korrigieren oder zu erklären, wie sie behoben werden können.
+
+Anweisungen:
+""Gib nur Informationen über die Fehler (syntaktische, semantische oder logische Fehler).""
+""Beschreibe die Fehler kurz und klar, ggf. mit Angabe der betroffenen Zeile oder des Ausdrucks.""
+""Nenne keine Lösung, keinen Fix und keine Verbesserungsvorschläge.""
+""Konzentriere dich ausschließlich auf funktionale Korrektheit, nicht auf Stil oder Effizienz.""
+""Formuliere prägnant, in ganzen Sätzen, und halte das Feedback bedeutungsvoll, exakt und nützlich.""
+
+Beispielhafte Formulierungen:
+„In Zeile 8 wird eine Variable verwendet, die vorher nicht deklariert wurde.“
+„Die Schleifenbedingung in Zeile 12 erfüllt nicht die geforderte Abbruchbedingung.“
+
+Ziel:
+Liefere dem Lernenden reine Wissensrückmeldung über Fehler, damit er selbstständig weiterarbeiten kann.
+","public int[] IncrementArray(int[] nums) {
+int[] result = new int[nums.Length];
+for (int i = 0; i <= nums.Length; i++)
+{
+result[i] = nums[i] + 1;
+}
+}","In der Schleifenbedingung (`for (int i = 0; i <= nums.Length; i++)`) wird `i <= nums.Length` verwendet, wodurch beim letzten Durchlauf auf `nums[nums.Length]` bzw. `result[nums.Length]` zugegriffen wird – beides liegt außerhalb des gültigen Indexbereichs.
+- Am Ende der Methode fehlt eine `return`-Anweisung für das angelegte `result`-Array, obwohl der Methodenrumpf einen Rückgabewert vom Typ `int[]` verlangt.","In der for-Schleife steht die Bedingung `i <= nums.Length`. Bei `i == nums.Length` greifen `nums[i]` und `result[i]` außerhalb des Array-Bereichs zu, was eine IndexOutOfRangeException zur Folge hat.
+- Am Ende der Methode fehlt eine Rückgabeanweisung (`return result;`), obwohl der Methodenkopf `int[]` als Rückgabewert verlangt.```","In der Schleifenbedingung `for (int i = 0; i <= nums.Length; i++)` wird `i` bis einschließlich `nums.Length` hochgezählt. Damit greift `result[i]` bzw. `nums[i]` im letzten Schleifendurchlauf außerhalb des gültigen Indexbereichs zu.
+- Am Ende der Methode fehlt eine `return`-Anweisung für das Array `result`, wodurch der Rückgabewert nicht geliefert wird.","In Zeile 3 steht in der Schleifenbedingung „i <= nums.Length“. Dadurch wird beim letzten Durchlauf auf nums[nums.Length] und result[nums.Length] zugegriffen, was eine IndexOutOfRangeException auslöst.
+• In Zeile 7 fehlt nach Abschluss der Schleife eine Rückgabe („return result;“), wodurch die Methode keinen Wert liefert und ein Kompilierfehler entsteht.```","In der Methode fehlt nach der Schleife eine `return`-Anweisung für das Array `result`.
+- Die Schleifenbedingung `i <= nums.Length` (in der `for`-Schleife) erlaubt `i == nums.Length`, wodurch bei `result[i]` bzw. `nums[i]` ein IndexOutOfRangeException ausgelöst wird.","In der Schleifenbedingung `for (int i = 0; i <= nums.Length; i++)` wird `i` bis einschließlich `nums.Length` hochgezählt.
+- Dadurch tritt beim Zugriff auf `nums[i]` und `result[i]` in der letzten Iteration ein IndexOutOfRange-Fehler auf.
+- Ansonsten gibt es keine weiteren syntaktischen oder semantischen Abweichungen von der Aufgabenstellung.","In Zeile 3 steht in der Schleifenbedingung `i <= nums.Length`. Dadurch wird für `i == nums.Length` versucht, auf `nums[nums.Length]` und `result[nums.Length]` zuzugreifen, was zu einem IndexOutOfRangeException führt.
+- In Zeile 4 (`result[i] = nums[i] + 1;`) tritt wegen der fehlerhaften Abbruchbedingung ein Laufzeitfehler auf.
+- Am Ende der Methode fehlt eine schließende geschweifte Klammer, was einen syntaktischen Fehler verursacht.","In Zeile 3 („for (int i = 0; i <= nums.Length; i++)“) führt die Bedingung „<=“ beim letzten Durchlauf zu einem Zugriff auf Index nums.Length, was außerhalb des gültigen Bereichs liegt.
+- Am Methodenende fehlt eine `return`-Anweisung für das Array `result`, sodass die Methode keinen Wert zurückliefert und nicht kompiliert.","In der for-Schleife („for (int i = 0; i <= nums.Length; i++)“) führt die Bedingung „i <= nums.Length“ bei i == nums.Length zu einem Out-of-Range-Zugriff.Der Ausdruck „result[i] = nums[i] + 1;“ in dieser Schleife greift im letzten Durchlauf auf einen Index jenseits der Array-Grenzen zu.Am Ende der Methode fehlt eine return result;Anweisung, sodass das berechnete Array nicht zurückgegeben wird.","In der Schleifenbedingung `i <= nums.Length` (Zeile 3) wird die Schleife einen Durchlauf zu viel ausgeführt.
+- In Zeile 5 führen die Ausdrücke `result[i]` und `nums[i]` bei `i == nums.Length` zu einem IndexOutOfRange-Fehler."
+"Plugin KR
+Temperature: Default","Kontext: {{$description}}
+Lernpräferenzen: {{$preferences}}.
+Code: {{$code}}
+Beurteile bitte kurz, ob der Code zur Aufgabenstellung korrekt ist oder nicht.
+Antworte nur mit „Dein Code ist korrekt“ oder „Dein Code enthält leider Fehler“.
+","public int[] IncrementArray(int[] nums) {
+int[] result = new int[nums.Length];
+for (int i = 0; i <= nums.Length; i++)
+{
+result[i] = nums[i] + 1;
+}
+}",Dein Code enthält leider Fehler,Dein Code enthält leider Fehler,Dein Code enthält leider Fehler,Dein Code enthält leider Fehler,Dein Code enthält leider Fehler,Dein Code enthält leider Fehler,Dein Code enthält leider Fehler,Dein Code enthält leider Fehler,Dein Code enthält leider Fehler,Dein Code enthält leider Fehler

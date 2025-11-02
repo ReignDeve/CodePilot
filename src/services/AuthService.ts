@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import routes from '../utils/apiroutes.json'
 
 // src/services/authService.ts
@@ -37,4 +38,3 @@ export async function register(dto: RegisterDto): Promise<void> {
     throw new Error(text || 'Registration failed')
   }
 }
-

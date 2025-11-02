@@ -4,6 +4,7 @@ import { login, register, LoginDto, RegisterDto } from 'services/AuthService'
 
 interface AuthContextType {
   token: string | null
+  userName: string | null
   loginUser: (credentials: LoginDto) => Promise<void>
   registerUser: (credentials: RegisterDto) => Promise<void>
   logout: () => void
@@ -15,11 +16,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [token, setToken] = useState<string | null>(() =>
     localStorage.getItem('jwt')
   )
+  const [userName, setUserName] = useState<string | null>(() =>
+    localStorage.getItem('userName')
+  )
 
   const loginUser = async (creds: LoginDto) => {
     const tok = await login(creds)
     localStorage.setItem('jwt', tok)
+    localStorage.setItem('userName', creds.userName)
     setToken(tok)
+    setUserName(creds.userName)
   }
 
   const registerUser = async (creds: RegisterDto) => {
@@ -30,11 +36,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     localStorage.removeItem('jwt')
+    localStorage.removeItem('userName')
     setToken(null)
+    setUserName(null)
   }
 
   return (
-    <AuthContext.Provider value={{ token, loginUser, registerUser, logout }}>
+    <AuthContext.Provider
+      value={{ token, userName, loginUser, registerUser, logout }}
+    >
       {children}
     </AuthContext.Provider>
   )

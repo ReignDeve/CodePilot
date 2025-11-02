@@ -7,7 +7,9 @@ namespace CodePilot.Backend.WebAPI.Models
     string Status,
     string Difficulty,
     string Code,
+    string ExternalId,
     string Description,
-    string Solution
+    string Solution,
+    string[] Invocations
   );
 }

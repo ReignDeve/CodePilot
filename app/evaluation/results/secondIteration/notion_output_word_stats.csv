@@ -1,0 +1,5 @@
+Output 1_words,Output 2_words,Output 3_words,Output 4_words,Output 5_words,Output 6_words,Output 7_words,Output 8_words,Output 9_words,Output 10_words,outputs_n,outputs_mean,outputs_median
+49,77,61,61,48,67,59,64,64,71,10,62.1,62.5
+121,103,74,86,87,140,149,85,89,105,10,103.9,96.0
+14,21,23,13,25,27,24,35,21,18,10,22.1,22.0
+5,5,5,5,5,5,5,5,5,5,10,5.0,5.0

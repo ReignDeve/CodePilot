@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "description": "Explains the users question with context to the exercise and users learning preferences",
+  "execution_settings": {
+    "default": {
+      "functions": [
+        {
+          "name": "Question",
+          "description": "Explains the users question with context to the exercise and users learning preferences",
+          "prompt": "skprompt.txt"
+        }
+      ]
+    }
+  }
+}

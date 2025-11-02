@@ -1,14 +1,52 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable tailwindcss/no-custom-classname */
 import React, { useState } from 'react'
 import { saveLearningPreferences } from '../services/PreferencesService'
+import {
+  Dialog,
+  Button,
+  Flex,
+  Text,
+  TextArea,
+  RadioGroup,
+  Callout,
+  Progress,
+  Separator,
+  CheckboxGroup
+} from '@radix-ui/themes'
 
-// Lokales State-Model passend zum Payload-Schema
+export type MotivationValue = '' | 'fun' | 'knowledge' | 'grades' | 'career'
+export type DifficultyValue = 'beginner' | 'intermediate' | 'advanced' | ''
+export type LearningStyleValue =
+  | ''
+  | 'examples'
+  | 'trial'
+  | 'tutorials'
+  | 'discussion'
+const LearningStyleVerbose: Record<Exclude<LearningStyleValue, ''>, string> = {
+  examples:
+    'Beispielbasiert: Ich lerne am besten durch gut kommentierte Worked Examples mit Schritt-für-Schritt-Erklärungen.',
+  trial:
+    'Explorativ: Ich probiere Dinge selbst aus, iteriere schnell und lerne aus Fehlern (Trial-and-Error).',
+  tutorials:
+    'Geführt: Klare Schritt-für-Schritt-Anleitungen, strukturierte Übungen und Checklisten helfen mir am meisten.',
+  discussion:
+    'Sozial: Austausch, Fragen stellen und Erklären in eigenen Worten (Pairing/Code-Reviews) bringt mich am weitesten.'
+}
+
+const DifficultyVerbose: Record<Exclude<DifficultyValue, ''>, string> = {
+  beginner: 'Ich bin Anfänger.',
+  intermediate: 'Ich bin fortgeschritten.',
+  advanced: 'Ich bin erfahren.'
+}
 interface LearningPreferencesState {
   problemSolving: string
   difficulty: 'beginner' | 'intermediate' | 'advanced' | ''
-  motivation: 'fun' | 'knowledge' | 'grades' | 'career' | ''
+  problems: string
+  motivation: MotivationValue[]
   motivationOther: string
-  learningStyle: 'examples' | 'trial' | 'tutorials' | 'discussion' | ''
+  learningStyle: LearningStyleValue
+  moreLearningStyle: string
   expectations: string
 }
 
@@ -17,16 +55,19 @@ const LearningPreferencesCard: React.FC = () => {
   const [preferences, setPreferences] = useState<LearningPreferencesState>({
     problemSolving: '',
     difficulty: '',
-    motivation: '',
+    problems: '',
+    motivation: [],
     motivationOther: '',
     learningStyle: '',
+    moreLearningStyle: '',
     expectations: ''
   })
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errorMsg, setErrorMsg] = useState<string | null>(null)
 
-  const totalSteps = 5
+  const totalSteps = 7
+  const progress = (currentStep / totalSteps) * 100
 
   const handleNext = () => {
     if (currentStep < totalSteps) setCurrentStep((s) => s + 1)
@@ -39,34 +80,30 @@ const LearningPreferencesCard: React.FC = () => {
   const handleFinish = async () => {
     setErrorMsg(null)
     setIsSubmitting(true)
+    const verboseLearningStyle = preferences.learningStyle
+      ? LearningStyleVerbose[
+          preferences.learningStyle as Exclude<LearningStyleValue, ''>
+        ]
+      : ''
+
+    const verboseDifficulty = preferences.difficulty
+      ? DifficultyVerbose[
+          preferences.difficulty as Exclude<DifficultyValue, ''>
+        ]
+      : ''
     try {
       await saveLearningPreferences({
         problemSolving: preferences.problemSolving,
-        difficulty: preferences.difficulty as
-          | 'beginner'
-          | 'intermediate'
-          | 'advanced',
-        motivation: preferences.motivation as
-          | 'fun'
-          | 'knowledge'
-          | 'grades'
-          | 'career'
-          | '',
+        difficulty: verboseDifficulty,
+        problems: preferences.problems,
+        motivation: preferences.motivation,
         motivationOther: preferences.motivationOther || undefined,
-        learningStyle: preferences.learningStyle as
-          | 'examples'
-          | 'trial'
-          | 'tutorials'
-          | 'discussion'
-          | '',
+        learningStyle: verboseLearningStyle,
+        moreLearningStyle: preferences.moreLearningStyle || undefined,
         expectations: preferences.expectations
       })
-      // Nach Erfolg Popup schließen + Bestätigung anzeigen
       setIsPopupOpen(false)
       setCurrentStep(1)
-      window.setTimeout(() => {
-        window.alert('Lernpräferenzen wurden gespeichert.')
-      }, 0)
     } catch (err: any) {
       setErrorMsg(err?.message || 'Speichern fehlgeschlagen')
     } finally {
@@ -74,204 +111,246 @@ const LearningPreferencesCard: React.FC = () => {
     }
   }
 
+  const Step1 = (
+    <Flex direction="column" gap="3">
+      <Text as="p" size="4" weight="bold">
+        Hallo! Damit du optimal unterstützt werden kannst, kannst du hier deine
+        Lernpräferenzen angeben.
+      </Text>
+
+      <Text as="p" size="3">
+        Deine Antworten helfen, Inhalte, Erklärungen und Übungsaufgaben besser
+        auf dich zuzuschneiden – damit du schneller verstehst, was wichtig ist,
+        und gezielter üben kannst.
+      </Text>
+
+      <Text as="p" size="3">
+        Die Antworten werden durch ein LLM zusammengefasst und zu einem Prompt
+        umformuliert. Dieser Prompt wird dann als Kontext für das Feedback
+        verwendet. So kann das Feedback besser auf dich abgestimmt werden.
+      </Text>
+
+      <Text as="p" size="3" weight="bold" className="mt-2">
+        Was du noch wissen solltest:
+      </Text>
+
+      <ul className="list-disc space-y-2 pl-5 text-sm md:text-base">
+        <li>
+          <span className="font-medium">Dauer:</span> Das Ausfüllen dauert nur
+          wenige Minuten – du kannst jederzeit pausieren und später
+          weitermachen.
+        </li>
+        <li>
+          <span className="font-medium">Änderbar:</span> Du kannst deine
+          Präferenzen hier jederzeit anpassen. Die Änderungen werden sofort
+          übernommen.
+        </li>
+        <li>
+          <span className="font-medium">Transparenz:</span> Deine Angaben werden
+          ausschließlich verwendet, um dein Lernerlebnis zu personalisieren
+          (Aufgabenauswahl, Hinweise, Beispiele, Fortschrittsempfehlungen).
+        </li>
+      </ul>
+    </Flex>
+  )
+
+  const Step2 = (
+    <Flex direction="column" gap="3">
+      <Text as="p" size="4" weight="bold">
+        Was sind deine typischen Probleme oder Herausforderungen beim
+        Programmieren?
+      </Text>
+      <TextArea
+        value={preferences.problems}
+        onChange={(e) =>
+          setPreferences((prev) => ({
+            ...prev,
+            problems: e.target.value
+          }))
+        }
+        placeholder="Beschreibe deine typischen Probleme..."
+        rows={6}
+        disabled={isSubmitting}
+      />
+    </Flex>
+  )
+
+  const Step3 = (
+    <Flex direction="column" gap="3">
+      <Text as="p" size="4" weight="bold">
+        Wenn du beim Programmieren auf ein Problem stößt, wie gehst du
+        typischerweise vor?
+      </Text>
+      <TextArea
+        value={preferences.problemSolving}
+        onChange={(e) =>
+          setPreferences((prev) => ({
+            ...prev,
+            problemSolving: e.target.value
+          }))
+        }
+        placeholder="Beschreibe deine typische Vorgehensweise..."
+        rows={6}
+        disabled={isSubmitting}
+      />
+    </Flex>
+  )
+
+  const Step4 = (
+    <Flex direction="column" gap="3">
+      <Text as="p" size="4" weight="bold">
+        Wie würdest du dein aktuelles Programmierlevel einschätzen?
+      </Text>
+      <RadioGroup.Root
+        value={preferences.difficulty}
+        onValueChange={(value) =>
+          setPreferences((prev) => ({ ...prev, difficulty: value as any }))
+        }
+        disabled={isSubmitting}
+      >
+        <Flex direction="column" gap="2">
+          <RadioGroup.Item value="beginner">
+            Anfänger – starte gerade, wenig/keine Praxis
+          </RadioGroup.Item>
+          <RadioGroup.Item value="intermediate">
+            Fortgeschritten – kenne Grundlagen, löse einfache Aufgaben
+          </RadioGroup.Item>
+          <RadioGroup.Item value="advanced">
+            Erfahren – strukturiere Projekte, debugge und teste selbstständig
+          </RadioGroup.Item>
+        </Flex>
+      </RadioGroup.Root>
+    </Flex>
+  )
+
+  const Step5 = (
+    <Flex direction="column" gap="3">
+      <Text as="p" size="4" weight="bold">
+        Was motiviert dich am meisten beim Programmieren?
+      </Text>
+      <CheckboxGroup.Root
+        value={preferences.motivation}
+        onValueChange={(value) =>
+          setPreferences((prev) => ({
+            ...prev,
+            motivation: value as MotivationValue[]
+          }))
+        }
+        disabled={isSubmitting}
+      >
+        <Flex direction="column" gap="2">
+          <CheckboxGroup.Item value="fun">
+            Spaß am Problemlösen
+          </CheckboxGroup.Item>
+          <CheckboxGroup.Item value="knowledge">
+            Neues Wissen / Skills erwerben
+          </CheckboxGroup.Item>
+          <CheckboxGroup.Item value="grades">
+            Gute Noten / Zertifikate erreichen
+          </CheckboxGroup.Item>
+          <CheckboxGroup.Item value="career">
+            Berufliche Karriere / Jobperspektive
+          </CheckboxGroup.Item>
+        </Flex>
+      </CheckboxGroup.Root>
+
+      <Text as="label" size="2" weight="bold">
+        Andere Motivation
+      </Text>
+      <TextArea
+        value={preferences.motivationOther}
+        onChange={(e) =>
+          setPreferences((prev) => ({
+            ...prev,
+            motivationOther: e.target.value
+          }))
+        }
+        placeholder="Oder beschreibe deine eigene Motivation..."
+        rows={4}
+        disabled={isSubmitting}
+      />
+    </Flex>
+  )
+
+  const Step6 = (
+    <Flex direction="column" gap="3">
+      <Text as="p" size="4" weight="bold">
+        Welche Lernform bevorzugst du, wenn du etwas Neues im Programmieren
+        lernen möchtest?
+      </Text>
+      <RadioGroup.Root
+        value={preferences.learningStyle}
+        onValueChange={(value) =>
+          setPreferences((prev) => ({ ...prev, learningStyle: value as any }))
+        }
+        disabled={isSubmitting}
+      >
+        <Flex direction="column" gap="2">
+          <RadioGroup.Item value="examples">
+            Durch Beispiele und fertigen Code
+          </RadioGroup.Item>
+          <RadioGroup.Item value="trial">
+            Durch eigene Experimente / Trial &amp; Error
+          </RadioGroup.Item>
+          <RadioGroup.Item value="tutorials">
+            Durch schrittweise Erklärungen / Tutorials
+          </RadioGroup.Item>
+          <RadioGroup.Item value="discussion">
+            Durch Diskussion mit anderen / Pair Programming
+          </RadioGroup.Item>
+        </Flex>
+      </RadioGroup.Root>
+      <Text as="label" size="2" weight="bold">
+        Weitere Lernformen oder Lernmethoden
+      </Text>
+      <TextArea
+        value={preferences.moreLearningStyle}
+        onChange={(e) =>
+          setPreferences((prev) => ({
+            ...prev,
+            moreLearningStyle: e.target.value
+          }))
+        }
+        placeholder="Oder beschreibe deine eigene Lernmethode..."
+        rows={4}
+        disabled={isSubmitting}
+      />
+    </Flex>
+  )
+
+  const Step7 = (
+    <Flex direction="column" gap="3">
+      <Text as="p" size="4" weight="bold">
+        Gibt es noch etwas, das dir wichtig ist oder das du hinzufügen möchtest?
+      </Text>
+      <TextArea
+        value={preferences.expectations}
+        onChange={(e) =>
+          setPreferences((prev) => ({ ...prev, expectations: e.target.value }))
+        }
+        placeholder="Beschreibe hier deine Wünsche, Anmerkungen oder Erwartungen..."
+        rows={6}
+        disabled={isSubmitting}
+      />
+    </Flex>
+  )
+
   const renderStep = () => {
     switch (currentStep) {
       case 1:
-        return (
-          <div className="space-y-4">
-            <h3 className="text-foreground text-xl font-semibold">
-              Wenn du beim Programmieren auf ein Problem stößt, wie gehst du
-              typischerweise vor?
-            </h3>
-            <textarea
-              value={preferences.problemSolving}
-              onChange={(e) =>
-                setPreferences((prev) => ({
-                  ...prev,
-                  problemSolving: e.target.value
-                }))
-              }
-              placeholder="Beschreibe deine typische Vorgehensweise..."
-              className="border-border bg-background text-foreground placeholder:text-muted-foreground h-32 w-full resize-none rounded-lg border px-4 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-        )
-
+        return Step1
       case 2:
-        return (
-          <div className="space-y-4">
-            <h3 className="text-foreground text-xl font-semibold">
-              Wie würdest du dein aktuelles Programmierlevel einschätzen?
-            </h3>
-            <div className="space-y-3">
-              {[
-                { value: 'beginner', label: 'Anfänger – kaum Erfahrung' },
-                {
-                  value: 'intermediate',
-                  label:
-                    'Fortgeschritten – kenne Grundlagen, brauche aber noch Hilfe'
-                },
-                {
-                  value: 'advanced',
-                  label: 'Erfahren – kann eigenständig Programme schreiben'
-                }
-              ].map((option) => (
-                <label
-                  key={option.value}
-                  className="flex cursor-pointer items-center space-x-3"
-                >
-                  <input
-                    type="radio"
-                    name="difficulty"
-                    value={option.value}
-                    checked={preferences.difficulty === (option.value as any)}
-                    onChange={(e) =>
-                      setPreferences((prev) => ({
-                        ...prev,
-                        difficulty: e.target.value as any
-                      }))
-                    }
-                    className="text-blue-600 focus:ring-blue-500"
-                    disabled={isSubmitting}
-                  />
-                  <span className="text-foreground">{option.label}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-        )
-
+        return Step2
       case 3:
-        return (
-          <div className="space-y-4">
-            <h3 className="text-foreground text-xl font-semibold">
-              Was motiviert dich am meisten beim Programmieren?
-            </h3>
-            <div className="space-y-3">
-              {[
-                { value: 'fun', label: 'Spaß am Problemlösen' },
-                { value: 'knowledge', label: 'Neues Wissen / Skills erwerben' },
-                {
-                  value: 'grades',
-                  label: 'Gute Noten / Zertifikate erreichen'
-                },
-                {
-                  value: 'career',
-                  label: 'Berufliche Karriere / Jobperspektive'
-                }
-              ].map((option) => (
-                <label
-                  key={option.value}
-                  className="flex cursor-pointer items-center space-x-3"
-                >
-                  <input
-                    type="radio"
-                    name="motivation"
-                    value={option.value}
-                    checked={preferences.motivation === (option.value as any)}
-                    onChange={(e) =>
-                      setPreferences((prev) => ({
-                        ...prev,
-                        motivation: e.target.value as any
-                      }))
-                    }
-                    className="text-blue-600 focus:ring-blue-500"
-                    disabled={isSubmitting}
-                  />
-                  <span className="text-foreground">{option.label}</span>
-                </label>
-              ))}
-
-              {/* Freitext-Option */}
-              <textarea
-                value={preferences.motivationOther}
-                onChange={(e) =>
-                  setPreferences((prev) => ({
-                    ...prev,
-                    motivationOther: e.target.value
-                  }))
-                }
-                placeholder="Oder beschreibe deine eigene Motivation..."
-                className="border-border bg-background text-foreground placeholder:text-muted-foreground h-20 w-full resize-none rounded-lg border px-4 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          </div>
-        )
-
+        return Step3
       case 4:
-        return (
-          <div className="space-y-4">
-            <h3 className="text-foreground text-xl font-semibold">
-              Welche Lernform bevorzugst du, wenn du etwas Neues im
-              Programmieren lernen möchtest?
-            </h3>
-            <div className="space-y-3">
-              {[
-                {
-                  value: 'examples',
-                  label: 'Durch Beispiele und fertigen Code'
-                },
-                {
-                  value: 'trial',
-                  label: 'Durch eigene Experimente / Trial & Error'
-                },
-                {
-                  value: 'tutorials',
-                  label: 'Durch schrittweise Erklärungen / Tutorials'
-                },
-                {
-                  value: 'discussion',
-                  label: 'Durch Diskussion mit anderen / Pair Programming'
-                }
-              ].map((option) => (
-                <label
-                  key={option.value}
-                  className="flex cursor-pointer items-center space-x-3"
-                >
-                  <input
-                    type="radio"
-                    name="learningStyle"
-                    value={option.value}
-                    checked={
-                      preferences.learningStyle === (option.value as any)
-                    }
-                    onChange={(e) =>
-                      setPreferences((prev) => ({
-                        ...prev,
-                        learningStyle: e.target.value as any
-                      }))
-                    }
-                    className="text-blue-600 focus:ring-blue-500"
-                    disabled={isSubmitting}
-                  />
-                  <span className="text-foreground">{option.label}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-        )
-
+        return Step4
       case 5:
-        return (
-          <div className="space-y-4">
-            <h3 className="text-foreground text-xl font-semibold">
-              Was wünschst du dir persönlich von einem digitalen Lern-Tutor,
-              damit er dich bestmöglich unterstützt?
-            </h3>
-            <textarea
-              value={preferences.expectations}
-              onChange={(e) =>
-                setPreferences((prev) => ({
-                  ...prev,
-                  expectations: e.target.value
-                }))
-              }
-              placeholder="Beschreibe hier deine Wünsche und Erwartungen..."
-              className="border-border bg-background text-foreground placeholder:text-muted-foreground h-32 w-full resize-none rounded-lg border px-4 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-        )
-
+        return Step5
+      case 6:
+        return Step6
+      case 7:
+        return Step7
       default:
         return null
     }
@@ -279,119 +358,94 @@ const LearningPreferencesCard: React.FC = () => {
 
   return (
     <>
-      {/* Card Button */}
-      <div
-        onClick={() => setIsPopupOpen(true)}
-        className="border-border group cursor-pointer rounded-lg border p-6 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md"
+      <Dialog.Root
+        open={isPopupOpen}
+        onOpenChange={(open) => {
+          // Während des Speicherns nicht schließen
+          if (!isSubmitting) setIsPopupOpen(open)
+        }}
       >
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="text-foreground mb-2 text-lg font-semibold transition-colors group-hover:text-blue-600">
-              Lernpräferenzen
-            </h3>
-            <p className="text-muted-foreground text-sm">
-              Personalisiere deine Lernerfahrung
-            </p>
-          </div>{' '}
-        </div>
-      </div>
-
-      {/* Popup Modal */}
-      {isPopupOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center  p-4">
-          <div className="border-border bg-foreground relative z-10 max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-lg border  bg-white shadow-xl">
-            {/* Header */}
-            <div className="border-border flex items-center justify-between border-b p-6">
+        <Dialog.Trigger>
+          {/* Card Button (behält dein bestehendes Tailwind-Design) */}
+          <div className="border-border group cursor-pointer rounded-lg border p-6 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md">
+            <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-foreground text-2xl font-bold">
+                <h3 className="text-foreground mb-2 text-lg font-semibold transition-colors group-hover:text-blue-600">
                   Lernpräferenzen
-                </h2>
-                <p className="text-muted-foreground mt-1 text-sm">
-                  Schritt {currentStep} von {totalSteps}
+                </h3>
+                <p className="text-muted-foreground text-md">
+                  Personalisiere deine Lernerfahrung
                 </p>
-              </div>
-              <button
-                onClick={() => setIsPopupOpen(false)}
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                disabled={isSubmitting}
-              >
-                <svg
-                  className="size-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            </div>
-
-            {/* Progress Bar */}
-            <div className="px-6 pt-4">
-              <div className="bg-muted h-2 w-full rounded-full">
-                <div
-                  className="h-2 rounded-full bg-blue-600 transition-all duration-300"
-                  style={{ width: `${(currentStep / totalSteps) * 100}%` }}
-                ></div>
-              </div>
-            </div>
-
-            {/* Content */}
-            <div className="p-6">
-              {errorMsg && (
-                <div className="mb-4 rounded-md bg-red-50 p-3 text-sm text-red-700">
-                  {errorMsg}
-                </div>
-              )}
-              {renderStep()}
-            </div>
-
-            {/* Footer */}
-            <div className="border-border flex items-center justify-between border-t p-6">
-              <button
-                onClick={handlePrevious}
-                disabled={currentStep === 1 || isSubmitting}
-                className="text-muted-foreground hover:text-foreground px-4 py-2 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                Zurück
-              </button>
-
-              <div className="flex space-x-3">
-                <button
-                  onClick={() => setIsPopupOpen(false)}
-                  className="text-muted-foreground hover:text-foreground px-4 py-2 transition-colors"
-                  disabled={isSubmitting}
-                >
-                  Abbrechen
-                </button>
-
-                {currentStep < totalSteps ? (
-                  <button
-                    onClick={handleNext}
-                    className="rounded-lg bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700 disabled:opacity-50"
-                    disabled={isSubmitting}
-                  >
-                    Weiter
-                  </button>
-                ) : (
-                  <button
-                    onClick={handleFinish}
-                    className="rounded-lg bg-green-600 px-6 py-2 text-white transition-colors hover:bg-green-700 disabled:opacity-50"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? 'Speichern…' : 'Fertig'}
-                  </button>
-                )}
+                <p className="text-muted-foreground mt-2 text-sm">
+                  Dadurch kann das System dich und deine Lernweise besser
+                  verstehen und sich so dir anzupassen.
+                </p>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        </Dialog.Trigger>
+
+        <Dialog.Content maxWidth="720px">
+          <Flex justify="between" align="center" mb="2">
+            <div>
+              <Dialog.Title>Lernpräferenzen</Dialog.Title>
+              <Text size="2" color="gray">
+                Schritt {currentStep} von {totalSteps}
+              </Text>
+            </div>
+            {/* Schließen-Button oben rechts */}
+            <Dialog.Close disabled={isSubmitting}>
+              <Button variant="soft" color="gray" disabled={isSubmitting}>
+                Schließen
+              </Button>
+            </Dialog.Close>
+          </Flex>
+
+          <Progress value={progress} mb="3" />
+          <Separator my="3" />
+
+          {errorMsg && (
+            <Callout.Root color="red" mb="3">
+              <Callout.Text>{errorMsg}</Callout.Text>
+            </Callout.Root>
+          )}
+
+          {renderStep()}
+
+          <Flex justify="between" align="center" mt="4">
+            <Button
+              variant="soft"
+              color="gray"
+              onClick={handlePrevious}
+              disabled={currentStep === 1 || isSubmitting}
+            >
+              Zurück
+            </Button>
+
+            <Flex gap="3">
+              <Dialog.Close disabled={isSubmitting}>
+                <Button variant="soft" color="gray" disabled={isSubmitting}>
+                  Abbrechen
+                </Button>
+              </Dialog.Close>
+
+              {currentStep < totalSteps ? (
+                <Button onClick={handleNext} disabled={isSubmitting}>
+                  Weiter
+                </Button>
+              ) : (
+                <Button
+                  onClick={handleFinish}
+                  disabled={isSubmitting}
+                  color="green"
+                >
+                  {isSubmitting ? 'Speichern…' : 'Fertig'}
+                </Button>
+              )}
+            </Flex>
+          </Flex>
+        </Dialog.Content>
+      </Dialog.Root>
     </>
   )
 }

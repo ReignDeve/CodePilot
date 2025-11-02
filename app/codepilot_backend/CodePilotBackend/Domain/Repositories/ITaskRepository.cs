@@ -13,5 +13,10 @@ namespace Domain.Repositories
     Task<IReadOnlyList<CodingTask>> GetAllAsync(CancellationToken ct = default);
     Task<CodingTask?> FindByIdAsync(Guid id, CancellationToken ct = default);
     Task SaveChangesAsync(CancellationToken ct = default);
+
+    Task <CodingTask?> GetByIdWithInvocationsAsync(Guid id, CancellationToken ct = default);
+
+    Task AddInvocation(TaskInvocation taskInvocation, CancellationToken ct = default);
+    Task<TaskInvocation?> GetInvocations(Guid id, CancellationToken ct = default);
   }
 }

@@ -1,22 +1,26 @@
 // Popover.tsx
-import React, { ReactNode } from 'react';
-import * as PopoverPrimitive from '@radix-ui/react-popover';
+import React, { ReactNode } from 'react'
+import * as PopoverPrimitive from '@radix-ui/react-popover'
 
 export interface PopoverProps {
   /** The element that triggers the popover */
-  trigger: ReactNode;
+  trigger: ReactNode
   /** Popover content */
-  children: ReactNode;
+  children: ReactNode
   /** Width of popover content (e.g., '360px') */
-  width?: string;
+  width?: string
   /** Offset from trigger to content */
-  sideOffset?: number;
+  sideOffset?: number
 }
 
 /**
  * A reusable Popover component using Radix UI Popover primitives.
  */
-const Popover: React.FC<PopoverProps> = ({ trigger, children, width = 'auto'}) => (
+const Popover: React.FC<PopoverProps> = ({
+  trigger,
+  children,
+  width = 'auto'
+}) => (
   <PopoverPrimitive.Root>
     <PopoverPrimitive.Trigger asChild>
       {/* Trigger can be any ReactNode */}
@@ -24,12 +28,12 @@ const Popover: React.FC<PopoverProps> = ({ trigger, children, width = 'auto'}) =
     </PopoverPrimitive.Trigger>
 
     <PopoverPrimitive.Content
-      className="bg-[#262626] p-2 rounded mr-5 mt-3"
+      className="mr-5 mt-3 rounded bg-[#262626] p-2"
       style={{ width }}
     >
       {children}
     </PopoverPrimitive.Content>
   </PopoverPrimitive.Root>
-);
+)
 
-export default Popover;
+export default Popover

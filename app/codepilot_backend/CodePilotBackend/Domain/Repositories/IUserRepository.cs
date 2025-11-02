@@ -13,5 +13,8 @@ namespace Domain.Repositories
     Task<User?> FindByNameAsync(string userName, CancellationToken ct = default);
     Task<User?> FindByIdAsync(Guid id, CancellationToken ct = default);
     Task SaveChangesAsync(CancellationToken ct = default);
+    Task SetLearningPreferencesAsync(Guid userId, string preferences, CancellationToken ct = default);
+
+    Task<string> GetLearningPreferencesAsync(Guid userId, CancellationToken ct = default);
   }
 }

@@ -7,7 +7,12 @@ namespace CodePilot.Backend.WebAPI
   {
     public static GetTasks ToDto(this CodingTask t) => new(
         t.Id, t.Title, t.Status.ToString(), t.Difficulty.ToString(),
-        t.Code, t.Description, t.Solution);
+        t.Code, t.ExternalId, t.Description, t.Solution, t.Invocations
+      .OrderBy(i => i.Order)
+      .Select(i => i.Value)
+      .ToArray());
   }
+
+
 
 }

@@ -39,6 +39,9 @@ namespace Persistence.Db.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid>("InvocationId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Solution")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -56,10 +59,39 @@ namespace Persistence.Db.Migrations
                     b.ToTable("Tasks", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.TaskInvocation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("CodingTaskId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Order")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(0);
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CodingTaskId");
+
+                    b.ToTable("TaskInvocations", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LearningPreferences")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
@@ -100,6 +132,20 @@ namespace Persistence.Db.Migrations
                         .IsUnique();
 
                     b.ToTable("UserTaskProgress", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.TaskInvocation", b =>
+                {
+                    b.HasOne("Domain.Entities.CodingTask", null)
+                        .WithMany("Invocations")
+                        .HasForeignKey("CodingTaskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.CodingTask", b =>
+                {
+                    b.Navigation("Invocations");
                 });
 #pragma warning restore 612, 618
         }

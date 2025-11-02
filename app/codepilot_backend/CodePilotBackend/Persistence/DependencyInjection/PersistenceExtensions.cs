@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Repositories;
+using Persistence.Services;
 
 namespace Persistence.DependencyInjection
 {
@@ -19,6 +20,7 @@ namespace Persistence.DependencyInjection
       services.AddScoped<ITaskRepository, TaskRepository>();
       services.AddScoped<IUserRepository, UserRepository>();
       services.AddScoped<IUserTaskProgressRepository, UserTaskProgressRepository>();
+      services.AddScoped<ITokenService, TokenService>();
       return services;
     }
   }

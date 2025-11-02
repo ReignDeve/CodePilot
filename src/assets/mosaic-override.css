@@ -1,0 +1,42 @@
+/* ==== RESET + THEME FÜR REACT-MOSAIC-SPLITS ==== */
+.task-mosaic .mosaic-split {
+  z-index: 1;
+}
+
+.task-mosaic .mosaic-split.-column {
+  background: transparent !important;
+}
+.task-mosaic .mosaic-split.-column:hover {
+  background: #0090ff !important;
+  margin-top: -1px;
+  height: 2px;
+  border-radius: 3px;
+}
+
+.task-mosaic .mosaic-split.-row {
+  background: transparent !important;
+}
+.task-mosaic .mosaic-split.-row:hover {
+  background: #0090ff !important;
+  width: 3px;
+  margin-left: -1px;
+  border-radius: 3px;
+}
+
+
+/*---------------------------------------------------------------------------------------------
+
+/* === Drop-Target Overlay (wenn du ein Panel über einem anderen hältst) === */
+.window-mosaic [class*='drop-target'] {
+  background-color: #0090ff33 !important;
+  outline: 2px solid #3b82f6;
+  outline-offset: -2px;
+  border-radius: 0.5rem;
+}
+
+.task-mosaic [class*='drop-target'] [class*='drop-target']:hover {
+  background-color: #0090ff33 !important;
+  outline: 2px solid #3b82f6;
+  outline-offset: -2px;
+  border-radius: 0.5rem;
+}

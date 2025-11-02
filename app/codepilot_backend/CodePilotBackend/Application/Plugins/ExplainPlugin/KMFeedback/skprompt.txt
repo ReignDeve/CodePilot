@@ -1,3 +1,21 @@
+KM (Knowledge about Mistakes) Prompt
+
 Kontext: {{$description}}
+Lernpräferenzen: {{$preferences}}.
 Code: {{$code}}
-Identifiziere die Stellen im Code, die nicht zur Aufgabenstellung passen. Nenne nur die fehlerhaften Zeilen oder Ausdrücke, ohne sie zu korrigieren.
+
+Analysiere den Code und weise auf Fehler oder Abweichungen von der Aufgabenstellung hin, ohne sie zu korrigieren oder zu erklären, wie sie behoben werden können.
+
+Anweisungen:
+"Gib nur Informationen über die Fehler (syntaktische, semantische oder logische Fehler)."
+"Beschreibe die Fehler kurz und klar, ggf. mit Angabe der betroffenen Zeile oder des Ausdrucks."
+"Nenne keine Lösung, keinen Fix und keine Verbesserungsvorschläge."
+"Konzentriere dich ausschließlich auf funktionale Korrektheit, nicht auf Stil oder Effizienz."
+"Formuliere prägnant, in ganzen Sätzen, und halte das Feedback bedeutungsvoll, exakt und nützlich."
+
+Beispielhafte Formulierungen:
+„In Zeile 8 wird eine Variable verwendet, die vorher nicht deklariert wurde.“
+„Die Schleifenbedingung in Zeile 12 erfüllt nicht die geforderte Abbruchbedingung.“
+
+Ziel:
+Liefere dem Lernenden reine Wissensrückmeldung über Fehler, damit er selbstständig weiterarbeiten kann.

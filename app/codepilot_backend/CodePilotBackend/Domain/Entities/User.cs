@@ -7,6 +7,7 @@ namespace Domain.Entities
     public Guid Id { get; init; } = Guid.NewGuid();
     public string UserName { get; private set; } = "";
     public string PasswordHash { get; private set; } = "";
+    public string LearningPreferences { get; private set; } = "";
 
     public static User Create(string name) => new() { UserName = name };
 
@@ -20,5 +21,7 @@ namespace Domain.Entities
       var result = hasher.VerifyHashedPassword(this, PasswordHash, password);
       return result != PasswordVerificationResult.Failed;
     }
+
+    public void SetLearningPreferences(string text) => LearningPreferences = text ?? "";
   }
 }

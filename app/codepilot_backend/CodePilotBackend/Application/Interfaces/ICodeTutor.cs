@@ -7,24 +7,36 @@ using System.Threading.Tasks;
 namespace Application.Interfaces
 {
 
-    public interface ICodeTutor
-    {
-      Task<string> ExplainWithContextAsync(
-          string code,
-          string description,
-          CancellationToken ct = default);
+  public interface ICodeTutor
+  {
+    Task<string> ExplainWithContextAsync(
+        Guid userId,
+        string code,
+        string question,
+        string description,
+        CancellationToken ct = default);
+    Task<string> ExplainTaskAsync(
+        Guid userId,
+        string code,
+        string description,
+        CancellationToken ct = default);
     Task<string> KHFeedbackAsync(
-          string code,
-          string description,
-          CancellationToken ct = default);
+        Guid userId,
+        string code,
+        string description,
+        CancellationToken ct = default);
     Task<string> KMFeedbackAsync(
-          string code,
-          string description,
-          CancellationToken ct = default);
+        Guid userId,
+        string code,
+        string description,
+        CancellationToken ct = default);
     Task<string> KRFeedbackAsync(
-          string code,
-          string description,
-          CancellationToken ct = default);
+        Guid userId,
+        string code,
+        string description,
+        CancellationToken ct = default);
+
+    Task<string> GetPreferencesAsync(Guid userid, CancellationToken ct = default);
   }
 
 }

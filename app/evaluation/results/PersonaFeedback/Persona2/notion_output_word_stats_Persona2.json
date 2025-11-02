@@ -1,0 +1,74 @@
+[
+  {
+    "row": 1,
+    "outputs": {
+      "Output 1": 44,
+      "Output 2": 70,
+      "Output 3": 35,
+      "Output 4": 48,
+      "Output 5": 34,
+      "Output 6": 76,
+      "Output 7": 70,
+      "Output 8": 54,
+      "Output 9": 65,
+      "Output 10": 99
+    },
+    "n": 10,
+    "mean": 59.5,
+    "median": 59.5
+  },
+  {
+    "row": 2,
+    "outputs": {
+      "Output 1": 35,
+      "Output 2": 26,
+      "Output 3": 28,
+      "Output 4": 33,
+      "Output 5": 32,
+      "Output 6": 29,
+      "Output 7": 14,
+      "Output 8": 27,
+      "Output 9": 35,
+      "Output 10": 34
+    },
+    "n": 10,
+    "mean": 29.3,
+    "median": 30.5
+  },
+  {
+    "row": 3,
+    "outputs": {
+      "Output 1": 39,
+      "Output 2": 51,
+      "Output 3": 41,
+      "Output 4": 43,
+      "Output 5": 39,
+      "Output 6": 47,
+      "Output 7": 43,
+      "Output 8": 47,
+      "Output 9": 44,
+      "Output 10": 45
+    },
+    "n": 10,
+    "mean": 43.9,
+    "median": 43.5
+  },
+  {
+    "row": 4,
+    "outputs": {
+      "Output 1": 5,
+      "Output 2": 5,
+      "Output 3": 5,
+      "Output 4": 5,
+      "Output 5": 5,
+      "Output 6": 5,
+      "Output 7": 5,
+      "Output 8": 5,
+      "Output 9": 5,
+      "Output 10": 5
+    },
+    "n": 10,
+    "mean": 5.0,
+    "median": 5.0
+  }
+]

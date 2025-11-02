@@ -24,11 +24,22 @@ namespace Persistence.Repositories
     public Task<CodingTask?> FindByIdAsync(Guid id, CancellationToken ct = default)
         => _db.Tasks
           .FirstOrDefaultAsync(t => t.Id == id, ct);
+    public Task<CodingTask?> GetByIdWithInvocationsAsync(Guid id, CancellationToken ct = default)
+      => _db.Tasks
+         .AsNoTracking()
+        .Include(t => t.Invocations)
+        .FirstOrDefaultAsync(t => t.Id == id, ct);
 
     public void Attach(CodingTask task)
     {
       _db.Tasks.Attach(task);
       _db.Entry(task).State = EntityState.Modified;
     }
+
+    public Task AddInvocation(TaskInvocation invocation, CancellationToken ct = default)
+      => _db.Invocations.AddAsync(invocation, ct).AsTask();
+
+    public Task<TaskInvocation?> GetInvocations(Guid id, CancellationToken ct = default)
+      => _db.Invocations.FirstOrDefaultAsync(invocation => invocation.Id == id, ct);
   }
 }

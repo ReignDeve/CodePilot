@@ -60,37 +60,38 @@ namespace Application.Services
       var user = await _users.FindByNameAsync(userName, ct)
                  ?? throw new InvalidOperationException("Ungültige Anmeldedaten");
 
-      Console.WriteLine($"[Login] StoredHash = {user.PasswordHash}");
       var result = _hasher.VerifyHashedPassword(user, user.PasswordHash, password);
-      Console.WriteLine($"[Login] VerifyHashedPassword returned: {result}");
-
       if (result == PasswordVerificationResult.Failed)
         throw new InvalidOperationException("Ungültige Anmeldedaten");
 
+      // ⚠️ siehe Punkt 2 bzgl. Rehash + Tracking
       if (result == PasswordVerificationResult.SuccessRehashNeeded)
       {
-        // optional: rehash and persist
         user.SetPassword(password, _hasher);
         await _users.SaveChangesAsync(ct);
       }
 
-      // create JWT token
+      var now = DateTime.UtcNow;
       var claims = new[]
       {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Name, user.UserName)
-        };
+    // WICHTIG:
+    new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+    new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
+    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+    new Claim(JwtRegisteredClaimNames.Iat, new DateTimeOffset(now).ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64),
+  };
 
       var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_cfg["Jwt:Key"]!));
       var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-      var expires = DateTime.UtcNow.AddHours(4);
 
       var token = new JwtSecurityToken(
-          issuer: _cfg["Jwt:Issuer"],
-          audience: _cfg["Jwt:Audience"],
-          claims: claims,
-          expires: expires,
-          signingCredentials: creds
+        issuer: _cfg["Jwt:Issuer"],
+        audience: _cfg["Jwt:Audience"],
+        claims: claims,
+        notBefore: now,
+        expires: now.AddHours(4),
+        signingCredentials: creds
       );
 
       return new JwtSecurityTokenHandler().WriteToken(token);

@@ -1,4 +1,5 @@
 using Application.Interfaces;
+using Domain.Entities;
 using Domain.Repositories;
 using Microsoft.SemanticKernel;
 using System.Threading.Tasks;
@@ -19,12 +20,21 @@ namespace Application.Services
       _tasks = tasks;
     }
 
-    public Task<string> ExplainCodeAsync(
+    public async Task<string> ExplainCodeAsync(
+      Guid userId,
         string code,
+        string question,
+        Guid taskId,
         CancellationToken ct = default)
-        => _tutor.ExplainWithContextAsync(code, string.Empty, ct);
+    {
+      var task = await _tasks.FindByIdAsync(taskId, ct)
+                 ?? throw new InvalidOperationException($"Task {taskId} not found");
+      return await _tutor.ExplainWithContextAsync(userId, code, question, task.Description, ct);
+    }
 
     public async Task<string> ExplainTaskAsync(
+      Guid userId,
+
         Guid taskId,
         string code,
         CancellationToken ct = default)
@@ -32,9 +42,11 @@ namespace Application.Services
       var task = await _tasks.FindByIdAsync(taskId, ct)
                  ?? throw new InvalidOperationException($"Task {taskId} not found");
 
-      return await _tutor.ExplainWithContextAsync(code, task.Description, ct);
+      return await _tutor.ExplainTaskAsync(userId, code, task.Description, ct);
     }
     public async Task<string> KRFeedbackAsync(
+      Guid userId,
+
         Guid taskId,
         string code,
         CancellationToken ct = default)
@@ -42,9 +54,11 @@ namespace Application.Services
       var task = await _tasks.FindByIdAsync(taskId, ct)
                  ?? throw new InvalidOperationException($"Task {taskId} not found");
 
-      return await _tutor.KRFeedbackAsync(code, task.Description, ct);
+      return await _tutor.KRFeedbackAsync(userId, code, task.Description, ct);
     }
     public async Task<string> KHFeedbackAsync(
+      Guid userId,
+
         Guid taskId,
         string code,
         CancellationToken ct = default)
@@ -52,9 +66,11 @@ namespace Application.Services
       var task = await _tasks.FindByIdAsync(taskId, ct)
                  ?? throw new InvalidOperationException($"Task {taskId} not found");
 
-      return await _tutor.KHFeedbackAsync(code, task.Description, ct);
+      return await _tutor.KHFeedbackAsync(userId, code, task.Description, ct);
     }
     public async Task<string> KMFeedbackAsync(
+      Guid userId,
+
         Guid taskId,
         string code,
         CancellationToken ct = default)
@@ -62,7 +78,7 @@ namespace Application.Services
       var task = await _tasks.FindByIdAsync(taskId, ct)
                  ?? throw new InvalidOperationException($"Task {taskId} not found");
 
-      return await _tutor.KMFeedbackAsync(code, task.Description, ct);
+      return await _tutor.KMFeedbackAsync(userId, code, task.Description, ct);
     }
 
   }

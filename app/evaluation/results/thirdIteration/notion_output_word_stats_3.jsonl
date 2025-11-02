@@ -1,0 +1,4 @@
+{"row": 1, "outputs": {"Output 1": 75, "Output 2": 79, "Output 3": 47, "Output 4": 69, "Output 5": 69, "Output 6": 54, "Output 7": 56, "Output 8": 42, "Output 9": 64, "Output 10": 50}, "n": 10, "mean": 60.5, "median": 60.0}
+{"row": 2, "outputs": {"Output 1": 21, "Output 2": 31, "Output 3": 17, "Output 4": 35, "Output 5": 29, "Output 6": 20, "Output 7": 23, "Output 8": 26, "Output 9": 15, "Output 10": 36}, "n": 10, "mean": 25.3, "median": 24.5}
+{"row": 3, "outputs": {"Output 1": 38, "Output 2": 54, "Output 3": 31, "Output 4": 44, "Output 5": 51, "Output 6": 47, "Output 7": 41, "Output 8": 33, "Output 9": 39, "Output 10": 46}, "n": 10, "mean": 42.4, "median": 42.5}
+{"row": 4, "outputs": {"Output 1": 5, "Output 2": 5, "Output 3": 5, "Output 4": 5, "Output 5": 5, "Output 6": 5, "Output 7": 5, "Output 8": 5, "Output 9": 5, "Output 10": 5}, "n": 10, "mean": 5.0, "median": 5.0}

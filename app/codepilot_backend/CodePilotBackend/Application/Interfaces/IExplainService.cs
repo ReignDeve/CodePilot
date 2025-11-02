@@ -11,13 +11,13 @@ namespace Application.Interfaces
     /// <summary>
     /// Explains the given code.
     /// </summary>
-    Task<string> ExplainCodeAsync(string code, CancellationToken ct = default);
+    Task<string> ExplainCodeAsync(Guid userId,string code, string question,Guid taskId,  CancellationToken ct = default);
     /// <summary>
     /// Explains the given code in context of description and more information.
     /// </summary>
-    Task<string> ExplainTaskAsync(Guid taskId, string code, CancellationToken ct = default);
-    Task<string> KRFeedbackAsync(Guid taskId, string code, CancellationToken ct = default);
-    Task<string> KMFeedbackAsync(Guid taskId, string code, CancellationToken ct = default);
-    Task<string> KHFeedbackAsync(Guid taskId, string code, CancellationToken ct = default);
+    Task<string> ExplainTaskAsync(Guid userId, Guid taskId, string code, CancellationToken ct = default);
+    Task<string> KRFeedbackAsync(Guid userId, Guid taskId, string code, CancellationToken ct = default);
+    Task<string> KMFeedbackAsync(Guid userId, Guid taskId, string code, CancellationToken ct = default);
+    Task<string> KHFeedbackAsync(Guid userId, Guid taskId, string code, CancellationToken ct = default);
   }
 }

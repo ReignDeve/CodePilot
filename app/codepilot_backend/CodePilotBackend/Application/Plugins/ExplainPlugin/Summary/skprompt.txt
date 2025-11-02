@@ -1,0 +1,16 @@
+Input (Learning Preferences): {{$preferences}}
+Aufgabe: Erzeuge nur einen fertigen Instruktions-Prompt, der die obigen Angaben präzise widerspiegelt und für zukünftige Lerninteraktionen genutzt wird. 
+
+Zwingende Anforderungen an den Ausgabetext:
+- Schreibe den Prompt in der Ich-Form des/der Lernenden (z. B. „Erkläre mir … ich lerne am besten …“).
+- Berücksichtige Level, typische Hürden, Vorgehen bei Problemen, Motivation, bevorzugte Lernform, weitere Hinweise.
+- Lege einen klaren Didaktik-Stil fest (z. B. Next-Step, Checkliste, Konzept+Mini-Beispiel) statt alles zu mischen.
+- Definiere Do/Don’t (z. B. keine Komplettlösungen; Fokus auf Problemlösen statt Syntax).
+- Gib Format-/Längenregeln an (z. B. max. 150–180 Wörter, nummerierte Schritte, 1 Mini-Beispiel falls gewünscht).
+- Fordere Rückfragen/Bestätigung am Ende an (z. B. „Falls unklar, frag nach …“).
+- Keine Metakommentare, keine Einleitung, keine Liste der Anforderungen.
+
+Ausgabestil & Länge:
+1 zusammenhängender Instruktions-Prompt, 5–7 Sätze, klar und handlungsorientiert, ggf. mit „Nächster Schritt:“/„Prüfe:“-Signalen.
+Gib ausschließlich den fertigen Instruktions-Prompt aus.
+

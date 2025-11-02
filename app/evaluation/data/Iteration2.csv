@@ -1,0 +1,102 @@
+﻿Wo,Prompt,Input,Output 1,Output 2,Output 3,Output 4,Output 5,Output 6,Output 7,Output 8,Output 9,Output 10
+"Systemprompt
+Temperature: Default
+","Kontext: {{$description}}.
+Bitte gib nur didaktisches Feedback, keine vollständigen Lösungen.
+Erkläre nicht zu viel, und beschränke dich auf drei bis maximal 4 Sätze.
+Wenn der gegebene Code lauffähig ist, gebe Denkanstöße und Hinweise wie man diesen Code optimieren könnte.
+Verwende passende und abwechselnde Formulierungen und wiederhole dich nicht.
+
+Folgender Code-Ausschnitt:
+{{$code}}","public int[] IncrementArray(int[] nums) {
+int[] result = new int[nums.Length];
+for (int i = 0; i <= nums.Length; i++)
+{
+result[i] = nums[i] + 1;
+}
+}","– Schau dir die Schleifenbedingung genau an: i <= nums.Length führt bei i == nums.Length zu einem Out-of-Bounds.
+– Überlege, ob i < nums.Length nicht passender wäre.
+– Dir fehlt außerdem eine return result; am Ende der Methode.
+– Wie könntest du das Ergebnis korrekt an den Aufrufer zurückgeben?","– In der for-Schleife sorgt “i <= nums.Length” für einen IndexOutOfRange, weil die Schleife einen Schritt zu weit läuft; verwende stattdessen “i < nums.Length”.
+– Du hast außerdem vergessen, das gefüllte Array am Ende zurückzugeben (“return result;”).
+– Wenn du den Code noch kompakter gestalten willst, könntest du etwa Array.ConvertAll oder LINQ (nums.Select(n => n + 1).ToArray()) einsetzen.
+– Für High-Performance-Szenarien lohnt sich auch ein Blick auf Span<T> oder einfaches Caching der Länge in einer lokalen Variablen.","Aktuell führt die Bedingung i <= nums.Length zu einem IndexOutOfRangeException; verwende i < nums.Length und vergiss nicht, am Ende result zurückzugeben.Optional könntest du statt einer manuellen Schleife Array.ConvertAll(nums, x => x + 1) oder LINQ (nums.Select(x => x + 1).ToArray()) einsetzen, um den Code kompakter zu halten.Achte außerdem darauf, dass keine unnötigen Durchläufe stattfinden und die Methode zuverlässig einen Wert zurückliefert.","Der Code kompiliert nicht, weil die Schleife mit i <= nums.Length einen IndexOutOfRange-Fehler verursacht und außerdem die returnAnweisung fehlt. Ändere die Schleifenbedingung zu < nums.Length und gib zuletzt das resultArray zurück. Zur Optimierung könntest du statt einer for-Schleife LINQ mit nums.Select(x => x + 1).ToArray() oder Array.ConvertAll(nums, x => x + 1) verwenden, um den Code klarer und kürzer zu gestalten.","Hast du bemerkt, dass die Schleifenbedingung „i <= nums.Length“ einen IndexOutOfRange-Fehler provoziert?
+Außerdem fehlt am Ende ein „return result;“, damit dein neues Array überhaupt zurückgegeben wird.
+Zur Kürze und Lesbarkeit ließe sich das komplette Looping sogar durch Array.ConvertAll oder LINQ (z. B. nums.Select(n => n + 1).ToArray()) ersetzen.","Im aktuellen Loop reicht die Bedingung „i <= nums.Length“ über das Arrayende hinaus – deshalb tritt ein IndexOutOfRange auf.
+• Außerdem fehlt am Ende eine „return result;“-Anweisung, damit das erzeugte Array zurückgegeben wird.
+• Überlege, ob du statt der klassischen for-Schleife eine foreach-Schleife oder LINQ mit nums.Select(n ⇒ n + 1).ToArray() einsetzen könntest.
+• Prüfe, ob alle Indizes und Abbruchkriterien korrekt sind, bevor du das Ergebnis zurückgibst.","Achte auf den Schleifenrand: i <= nums.Length führt zu einem IndexOutOfRange, verwende stattdessen < nums.Length.Vergiss nicht, das Ergebnisarray am Ende mit return result; zurückzugeben.Wenn du es noch kompakter möchtest, könntest du LINQ einsetzen: nums.Select(x => x + 1).ToArray().Prüfe zudem, ob bei extrem großen Arrays die Performance der Schleife tatsächlich beeinträchtigt wird oder ob der LINQ-Ansatz hier ausreichend performant ist.","• In der Schleifenbedingung führst du außerhalb des erlaubten Bereichs auf („<= nums.Length“), was zu einer IndexOutOfRange-Exception führt – staune über die Bedeutung von „<“ statt „<=“. • Dir fehlt am Ende eine Rückgabe („return result;“), ohne die bricht der Compiler ab. • Zur Kürzung könntest du statt einer klassischen Schleife auch Array.ConvertAll oder LINQ’s Select nutzen, was den Code auf eine Zeile verdichtet.","Der Loop läuft von 0 bis einschließlich nums.Length und überschreitet damit das letzte gültige Indexfeld – ersetze „<=“ durch „<“. Außerdem fehlt am Ende ein „return result;“, sonst liefert die Methode nichts zurück. Wenn du den Durchgang übersichtlicher gestalten willst, könntest du alternativ LINQ einsetzen (z. B. nums.Select(x => x+1).ToArray()). Achte bei großen Arrays darauf, dass der gewählte Ansatz hinsichtlich Speicher und Performance passt.","Schau dir die Schleifenbedingung genau an – „i <= nums.Length“ führt zu einem IndexOutOfRange, weil das letzte Element bei „nums.Length – 1“ endet.
+• Ergänze am Ende der Methode noch „return result;“, sonst liefert sie keinen Wert zurück.
+• Wenn du den Code kürzer gestalten willst, denk an LINQ: nums.Select(n => n + 1).ToArray().
+• Alternativ könntest du statt eines klassischen for auch eine foreach-Schleife nutzen, um die Lesbarkeit zu erhöhen."
+"Plugin KH
+Temperature: Default","Kontext: {{$description}}.
+Gib einen kurzen, didaktischen Hinweis, wie der Lernende seinen Code verbessern kann, ohne die gesamte Lösung vorwegzunehmen.
+Fokussiere dich dabei auf:
+1. mögliche Fehler oder Risiken,
+2. den nächsten sinnvollen Verbesserungsschritt,
+3. und ggf. kleine Stil- oder Verständlichkeitsverbesserungen.
+Code: {{$code}}","public int[] IncrementArray(int[] nums) {
+int[] result = new int[nums.Length];
+for (int i = 0; i <= nums.Length; i++)
+{
+result[i] = nums[i] + 1;
+}
+}","Hier ein paar gezielte Hinweise, ohne die komplette Lösung vorwegzunehmen:Mögliche Fehler/RisikenDu benutzt i <= nums.Length. Dadurch greifst du irgendwann auf nums[nums.Length] bzw. result[nums.Length] zu – das führt zu einer IndexOutOfRangeException.Es fehlt am Ende ein return result;, sonst gibt die Methode nichts zurück.Nächster sinnvoller SchrittPasse die Schleifenbedingung so an, dass i nur von 0 bis nums.Length - 1 läuft.Füge ganz unten ein return result; ein, um das neu befüllte Array zurückzugeben.Stil-/VerständlichkeitsverbesserungenÜberlege, ob du statt der klassischen forSchleife eine LINQ-Variante (Select) oder Array.ConvertAll einsetzen möchtest – das macht den Code oft kürzer und declarativer.Achte auf aussagekräftige Methodennamen (z. B. IncrementArray ist schon gut) und konsistente Einrückung.Kleiner Tipp zur Schleifenbedingung in C#:for (int i = 0; i < nums.Length; i++)
+{ // …
+}","Hier ein paar Hinweise, ohne die komplette Lösung vorwegzunehmen:Mögliche Fehler/RisikenDeine Schleifenbedingung „i <= nums.Length“ führt am letzten Durchlauf zu einem IndexOutOfRangeException.Wenn nums mal null wäre, würdest du eine NullReferenceException bekommen (aktuell angenommen nie null, aber in echten Projekten oft sinnvoll, das abzufangen).Nächster sinn­voller SchrittPasse die Bedingung so an, dass du nur bis nums.Length – 1 durchläufst.Optional: Überlege, ob du statt einer manuellen Schleife nicht einfach LINQ (nums.Select(n => n+1).ToArray()) einsetzen möchtest.Kleine Stil-/Verständlichkeits­verbesserungenEinheitliche Einrückung und Leerzeichen um Operatoren („i < nums.Length“ statt „i<nums.Length“).Mit var result = new int[nums.Length]; wird der Typ übersichtlicher.Falls die Methode nicht Teil einer Instanz ist, könntest du sie static machen.","Hier ein kurzer Hinweis zur Verbesserung:Möglicher Fehler/Risiko
+– Die Schleifenbedingung „i <= nums.Length“ führt bei i == nums.Length zu einem IndexOutOfRangeException.Nächster sinn­voller Schritt
+– Ändere die Bedingung auf „i < nums.Length“, so durchläufst du nur gültige Indizes.Stil-/Verständlichkeits­tipp
+– Zieh in Erwägung, vor allem in öffentlichen Methoden, einen kurzen Null-Check („if (nums == null) throw …“) einzubauen.
+– Nutze als Alternative LINQ oder Array.ConvertAll für noch prägnanteren Code, z.B.csharp return nums.Select(x => x + 1).ToArray();","Hinweise zur Verbesserung deines CodesMögliche Fehler oder RisikenDie Schleifenbedingung „i <= nums.Length“ führt beim Durchlauf zum IndexOutOfRange (der letzte Index ist nums.Length–1).Du hast die Methode bisher nicht mit „return result;“ abgeschlossen – ohne Rückgabe funktioniert das nicht.Nächster sinnvoller SchrittÄndere die Bedingung zu „i < nums.Length“, um nur gültige Indizes zu nutzen.Füge am Ende der Methode „return result;“ ein.Kleine Stil- oder VerständlichkeitsverbesserungenAlternativ kannst du statt einer klassischen for-Schleife auch LINQ nutzen, z. B.
+return nums.Select(x => x + 1).ToArray();
+Bei kurzen Operationen steigert das oft die Lesbarkeit.","Mögliche Fehler/RisikenDie Schleifenbedingung „i <= nums.Length“ übersteigt den höchsten Index und wirft eine IndexOutOfRangeException.Es fehlt am Ende ein „return result;“, sodass nichts zurückgegeben wird.Zwei Methoden mit identischer Signatur hintereinander führen zu Kompilierfehlern.Nächster sinnvoller SchrittSchleife von 0 bis „i < nums.Length“ laufen lassen.Direkt nach der Schleife „return result;“ einfügen.Die doppelte Methodendefinition entfernen – nur eine Implementierung reicht.Stil- und Verständlichkeits­verbesserungenEinheitliche Einrückung und Leerzeilen für bessere Lesbarkeit.Kommentare nur bei komplexeren Logikblöcken, hier wäre selbsterklärender Code ausreichend.Optional: „var result = new int[nums.Length];“ statt „int[]“, um den Code moderner wirken zu lassen.","Hier ein paar Hinweise, um deinen Code Schritt für Schritt zu verbessern:Mögliche Fehler oder RisikenDeine Schleifenbedingung i <= nums.Length führt bei i == nums.Length zu einem IndexOutOfRangeException, weil die Indizes von 0 bis nums.Length – 1 gehen.Optional: Momentan gehst du davon aus, dass nums nicht null ist. Willst du das explizit abfangen?Nächster sinnvoller SchrittKorrigiere die Bedingung auf i < nums.Length, damit du nur gültige Indizes ansprichst.Baue (wenn gewünscht) vor der Schleife eine kurze Nullprüfung ein:
+if (nums == null) throw new ArgumentNullException(nameof(nums));
+Stil- und VerständlichkeitsverbesserungenAchte auf einheitliche Einrückung und Leerzeilen, um den Code lesbarer zu halten.Wenn du magst, kannst du später statt der klassischen forSchleife auch ein LINQ-Statement probieren, z. B.
+return nums.Select(x => x + 1).ToArray();
+
+das ist kompakter und sehr ausdrucksstark.Probiere zuerst die forSchleife mit i < nums.Length zu fixen, teste sie und komm dann zum nächsten Schritt.","Hier ein gezielter Verbesserungshinweis, ohne die Lösung komplett vorwegzunehmen:Mögliche Fehler/RisikenDeine Schleifenbedingung „i <= nums.Length“ führt beim letzten Durchlauf zu einem IndexOutOfRangeException, weil Arrays von 0 bis Length–1 indiziert werden.Denk außerdem kurz darüber nach, was passiert, wenn das Eingabe-Array null ist (auch wenn es laut Aufgabenstellung mind. ein Element hat, kann man das robust absichern).Nächster sinnvoller SchrittÄndere die Bedingung in der for-Schleife so, dass du nur bis zum letzten gültigen Index läufst (i < nums.Length statt i <= nums.Length).Optional: Überlege, ob du statt einer klassischen for-Schleife nicht eine foreach-Schleife oder sogar LINQ („nums.Select(n => n+1).ToArray()“) einsetzen willst – das macht den Code oft kürzer und gut lesbar.Kleine Stil-/VerständlichkeitsverbesserungenNutze bei lokalen Deklarationen ruhig var (z. B. var result = new int[nums.Length];), das reduziert Wiederholungen.Achte auf einheitliche Einrückung und Leerzeichen (zwischen Schlüsselwort und Klammer).Erwäge eine kurze Argument-Prüfung am Anfang der Methode (if (nums == null) throw new ArgumentNullException(nameof(nums));), um späteren Verwirrungen vorzubeugen.","Hier ein paar Hinweise zur Verbesserung:Mögliche Fehler/RisikenDer Schleifenabbruch „i <= nums.Length“ führt beim letzten Durchlauf zu einem IndexOutOfRange (Index ist max nums.Length).Aktuell fehlt am Ende der Methode ein „return result;“, sonst liefert die Funktion gar nichts zurück.Nächster sinnvoller SchrittPasse die Schleifenbedingung so an, dass „i“ nur von 0 bis nums.Length – 1 läuft (also „i < nums.Length“).Ergänze am Ende der Methode „return result;“.Kleine Stil- und Verständlichkeits-VerbesserungenNutze in C# den For-Loop-Typ mit geschweiften Klammern und konsistenter Einrückung.Optional: Dokumentiere kurz, was die Methode macht (z. B. XML-Kommentare).","Hier ein kurzer Hinweis zur Verbesserung:Mögliche Fehler oder RisikenDer Loop nutzt i <= nums.Length. Dadurch greifst du einmal zu oft auf Index nums[nums.Length] zu, was immer eine IndexOutOfRangeException wirft.Nächster sinnvoller SchrittPasse die Schleifenbedingung so an, dass i nie den letzten gültigen Index überschreitet (also typischerweise i < nums.Length).Vergiss nicht, am Ende der Methode das gefüllte Array zurückzugeben (return result;).Stil- und Verständlichkeits-TippVerwende in C# gern var für lokale Variablen, wenn der Typ klar ist:
+var result = new int[nums.Length];
+Achte auf saubere Einrückung und Leerzeilen, um die Lesbarkeit zu steigern.","Hier ein paar Hinweise, ohne gleich die komplette Lösung vorzusetzen:Mögliche Fehler/Risiken
+– Off-by-one: Mit i <= nums.Length läuft Eure Schleife einen Index zu weit und wirft eine IndexOutOfRangeException.
+– (Optional) Null-Check: Falls nums doch mal null sein könnte, sollte man das abfangen.Nächster sinnvoller Schritt
+– Ändert die Schleifenbedingung zu i < nums.Length.
+– Fügt bei Bedarf einen Vorab-Check auf null ein, z. B.csharp if (nums == null) throw new ArgumentNullException(nameof(nums)); Kleine Stil-/Verständlichkeitsverbesserungen
+– Ihr könnt statt expliziter Typen auch var verwenden, um Code kürzer lesbar zu machen.
+– Mit LINQ würde der Kern in einer Zeile stehen:csharp var result = nums.Select(n => n + 1).ToArray();"
+"Plugin KM 
+Temperature: Default","Kontext: {{$description}}
+Code: {{$code}}
+Identifiziere die Stellen im Code, die nicht zur Aufgabenstellung passen oder Fehler enthalten.
+Nenne nur die fehlerhaften Zeilen oder Ausdrücke, ohne sie zu korrigieren oder Beschreiben. Nenne niemals die richtige Lösung.
+Beschränke dich nur funktionale Fehler zu nennen und keine Optimierungslösungen zu nennen.
+Antworte immer in ganzen Sätzen.
+","public int[] IncrementArray(int[] nums) {
+int[] result = new int[nums.Length];
+for (int i = 0; i <= nums.Length; i++)
+{
+result[i] = nums[i] + 1;
+}
+}","Die fehlerhafte Schleifenbedingung lautet „i <= nums.Length“.
+Die Methode enthält keine Rückgabeanweisung „return result;“.",Die Schleifenbedingung im Ausdruck „for (int i = 0; i <= nums.Length; i++)“Das Fehlen einer return result;Anweisung am Ende der Methode,"Die fehlerhafte Schleifenbedingung findet sich in der Zeile
+for (int i = 0; i <= nums.Length; i++)Außerdem fehlt in der Methode eine return-Anweisung.","Die fehlerhafte Zeile lautet:
+for (int i = 0; i <= nums.Length; i++)","Im vorliegenden Code sind folgende Stellen funktional fehlerhaft:Der Ausdrucki <= nums.Length
+in der for-Schleife.Die fehlende Rückgabeanweisung am Ende der Methode (es fehlt die return result;).","Die fehlerhafte Zeile ist die for-Schleife mit der Bedingung
+„for (int i = 0; i <= nums.Length; i++)“
+Dabei ist insbesondere der Ausdruck „i <= nums.Length“ falsch.","Die fehlerhafte Schleifenbedingung findet sich in der Zeilefor (int i = 0; i <= nums.Length; i++)
+Dort führt „i <= nums.Length“ zu einem Indexüberschuss.","Hier sind die funktionalen Fehler im gezeigten Code:Die Schleifenbedingung in der Zeilefor (int i = 0; i <= nums.Length; i++)
+enthält den falschen Vergleichsausdruck.Am Ende der Methode fehlt die Rückgabezeile für das Ergebnisarray (return result;).","Die fehlerhaften Stellen sind:Die for-Schleife in der Zeile
+for (int i = 0; i <= nums.Length; i++)Der Ausdruck
+i <= nums.Length",Folgende Stellen enthalten funktionale Fehler:Die Schleifenbedingung „i <= nums.Length“Es fehlt eine Rückgabeanweisung („return result;“) am Ende der Methode.
+"Plugin KR
+Temperature: Default","Kontext: {{$description}}
+Code: {{$code}}
+Beurteile bitte kurz, ob der Code zur Aufgabenstellung korrekt ist oder nicht.
+Antworte nur mit „Dein Code ist korrekt“ oder „Dein Code enthält leider Fehler“.
+","public int[] IncrementArray(int[] nums) {
+int[] result = new int[nums.Length];
+for (int i = 0; i <= nums.Length; i++)
+{
+result[i] = nums[i] + 1;
+}
+}",Dein Code enthält leider Fehler,Dein Code enthält leider Fehler,Dein Code enthält leider Fehler,Dein Code enthält leider Fehler,Dein Code enthält leider Fehler,Dein Code enthält leider Fehler,Dein Code enthält leider Fehler,Dein Code enthält leider Fehler,Dein Code enthält leider Fehler,Dein Code enthält leider Fehler

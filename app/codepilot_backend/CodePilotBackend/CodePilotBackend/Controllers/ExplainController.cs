@@ -1,6 +1,9 @@
 using Application.Interfaces;
+using CodePilot.Backend.WebAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace CodePilot.Backend.WebAPI.Controllers
 {
@@ -12,31 +15,21 @@ namespace CodePilot.Backend.WebAPI.Controllers
     private readonly IExplainService _explain;
 
     public ExplainController(IExplainService explain) => _explain = explain;
-
-    public record ExplainCodeRequest(string Code);
     public record ExplainTaskRequest(Guid TaskId, string Code);
-
-    [HttpPost("code")]
-    public async Task<ActionResult<string>> PostForCode(
-        [FromBody] ExplainCodeRequest req,
-        CancellationToken ct)
-    {
-      if (string.IsNullOrWhiteSpace(req.Code))
-        return BadRequest("Code darf nicht leer sein.");
-
-      var explanation = await _explain.ExplainCodeAsync(req.Code, ct);
-      return Ok(explanation);
-    }
 
     [HttpPost("task")]
     public async Task<ActionResult<string>> PostForTask(
         [FromBody] ExplainTaskRequest req,
         CancellationToken ct)
     {
+      var sub = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value
+            ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+      if (!Guid.TryParse(sub, out var userId)) return Forbid();
       if (string.IsNullOrWhiteSpace(req.Code))
         return BadRequest("Code darf nicht leer sein.");
 
-      var explanation = await _explain.ExplainTaskAsync(
+      var explanation = await _explain.ExplainTaskAsync(userId,
           req.TaskId, req.Code, ct);
 
       return Ok(explanation);
@@ -47,10 +40,14 @@ namespace CodePilot.Backend.WebAPI.Controllers
         [FromBody] ExplainTaskRequest req,
         CancellationToken ct)
     {
+      var sub = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value
+            ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+      if (!Guid.TryParse(sub, out var userId)) return Forbid();
       if (string.IsNullOrWhiteSpace(req.Code))
         return BadRequest("Code darf nicht leer sein.");
 
-      var explanation = await _explain.KMFeedbackAsync(
+      var explanation = await _explain.KMFeedbackAsync(userId,
           req.TaskId, req.Code, ct);
 
       return Ok(explanation);
@@ -61,10 +58,14 @@ namespace CodePilot.Backend.WebAPI.Controllers
         [FromBody] ExplainTaskRequest req,
         CancellationToken ct)
     {
+      var sub = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value
+            ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+      if (!Guid.TryParse(sub, out var userId)) return Forbid();
       if (string.IsNullOrWhiteSpace(req.Code))
         return BadRequest("Code darf nicht leer sein.");
 
-      var explanation = await _explain.KRFeedbackAsync(
+      var explanation = await _explain.KRFeedbackAsync(userId,
           req.TaskId, req.Code, ct);
 
       return Ok(explanation);
@@ -75,12 +76,35 @@ namespace CodePilot.Backend.WebAPI.Controllers
         [FromBody] ExplainTaskRequest req,
         CancellationToken ct)
     {
+      var sub = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value
+            ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+      if (!Guid.TryParse(sub, out var userId)) return Forbid();
       if (string.IsNullOrWhiteSpace(req.Code))
         return BadRequest("Code darf nicht leer sein.");
 
-      var explanation = await _explain.KHFeedbackAsync(
+      var explanation = await _explain.KHFeedbackAsync(userId,
           req.TaskId, req.Code, ct);
 
+      return Ok(explanation);
+    }
+
+    [HttpPost("question")]
+    public async Task<ActionResult<string>> PostForQuestion(
+      [FromBody] ExplainTaskWithQuestionRequest req,
+      CancellationToken ct)
+    {
+      var sub = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value
+            ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+      if (!Guid.TryParse(sub, out var userId)) return Forbid();
+
+      if (string.IsNullOrWhiteSpace(req.Code) || string.IsNullOrWhiteSpace(req.Question))
+        return BadRequest("Code oder Frage darf nicht leer sein.");
+      if (req.TaskId == Guid.Empty)
+        return BadRequest("TaskId darf nicht null sein");
+
+      var explanation = await _explain.ExplainCodeAsync(userId, req.Code, req.Question, req.TaskId, ct);
       return Ok(explanation);
     }
   }

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 // Description.tsx
 import React from 'react'
 
@@ -16,7 +17,7 @@ const Description: React.FC<DescriptionProps> = ({ description }) => {
     if (/^Example \d/.test(line)) {
       // Heading for Example
       elements.push(
-        <h3 key={i} className="font-semibold mt-4 mb-2 ">
+        <h3 key={i} className="mb-2 mt-4 font-semibold ">
           {line}
         </h3>
       )
@@ -34,7 +35,7 @@ const Description: React.FC<DescriptionProps> = ({ description }) => {
       elements.push(
         <blockquote
           key={`b${i}`}
-          className="pl-4 border-l-4 border-gray-300 italic mb-4"
+          className="mb-4 border-l-4 border-gray-300 pl-4 italic"
         >
           {blockLines.map((l, idx) => (
             <p key={idx} className="whitespace-pre-wrap ">
@@ -45,7 +46,7 @@ const Description: React.FC<DescriptionProps> = ({ description }) => {
       )
     } else if (/^You may assume:/.test(line)) {
       elements.push(
-        <h3 key={i} className="font-semibold mt-4 mb-2">
+        <h3 key={i} className="mb-2 mt-4 font-semibold">
           You may assume:
         </h3>
       )
@@ -56,7 +57,7 @@ const Description: React.FC<DescriptionProps> = ({ description }) => {
         !/^(Example \d|Constraints:)/.test(lines[i].trim())
       ) {
         elements.push(
-          <p key={i} className="whitespace-pre-wrap ml-4">
+          <p key={i} className="ml-4 whitespace-pre-wrap">
             {lines[i].trim().replace(/^- /, '• ')}
           </p>
         )
@@ -64,14 +65,14 @@ const Description: React.FC<DescriptionProps> = ({ description }) => {
       }
     } else if (/^Constraints:/.test(line)) {
       elements.push(
-        <h3 key={i} className="font-semibold mt-4 mb-2">
+        <h3 key={i} className="mb-2 mt-4 font-semibold">
           Constraints:
         </h3>
       )
       i++
       while (i < lines.length && lines[i].trim()) {
         elements.push(
-          <p key={i} className="whitespace-pre-wrap ml-4">
+          <p key={i} className="ml-4 whitespace-pre-wrap">
             {lines[i].trim().replace(/^- /, '• ')}
           </p>
         )
@@ -88,7 +89,7 @@ const Description: React.FC<DescriptionProps> = ({ description }) => {
     }
   }
 
-  return <div className="overflow-y-auto h-[700px]">{elements}</div>
+  return <div className="max-h-screen min-h-full overflow-y-auto">{elements}</div>
 }
 
 export default Description

@@ -1,5 +1,6 @@
+/* eslint-disable prettier/prettier */
 // src/pages/LoginPage.tsx
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from 'contexts/AuthContext'
 
@@ -10,6 +11,10 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [isRegister, setIsRegister] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    localStorage.clear();
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -33,7 +38,7 @@ export default function LoginPage() {
         <h2 className="text-center text-2xl font-bold">
           {isRegister ? 'Register' : 'Login'}
         </h2>
-        {error && <p className="text-red-400">{error}</p>}
+        {error && <p className="text-red-400">Username or Password is incorrect. Please try again.</p>}
         <input
           type="text"
           placeholder="Username"
@@ -52,7 +57,7 @@ export default function LoginPage() {
         />
         <button
           type="submit"
-          className="w-full rounded bg-blue-600 py-2 font-semibold hover:bg-blue-700"
+          className="w-full rounded bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700"
         >
           {isRegister ? 'Register' : 'Login'}
         </button>

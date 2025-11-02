@@ -1,3 +1,5 @@
 Kontext: {{$description}}
+Lernpräferenzen: {{$preferences}}.
 Code: {{$code}}
-Beurteile bitte kurz, ob der Code zur Aufgabenstellung korrekt ist oder nicht. Antworte nur mit „Korrekt“ oder „Nicht korrekt“.
+Beurteile bitte kurz, ob der Code zur Aufgabenstellung korrekt ist oder nicht.
+Antworte nur mit „Dein Code ist korrekt“ oder „Dein Code enthält leider Fehler“.

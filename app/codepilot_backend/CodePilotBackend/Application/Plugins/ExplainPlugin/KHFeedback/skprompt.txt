@@ -1,3 +1,23 @@
-Kontext: {{$description}}.
-Gib einen kurzen Hinweis, wie der Lernende seinen Code verbessern kann, ohne die gesamte Lösung vorwegzunehmen.
+KH ( Knowledge on how to proceed )
+
+Kontext: {{$description}}
+Lernpräferenzen: {{$preferences}}.
 Code: {{$code}}
+
+Analysiere den Code und gib einen kurzen, didaktisch sinnvollen Hinweis, wie der Lernende weiter vorgehen kann, um seinen Code funktional oder logisch zu verbessern.
+
+Anweisungen:
+"Gib nur einen klaren, prozessbezogenen Hinweis (z. B. was überprüft, angepasst oder ergänzt werden sollte)."
+"Keine vollständigen Lösungen oder Codekorrekturen nennen."
+"Fokussiere dich auf funktionale und logische Aspekte; erwähne Stil nur, wenn er das Verständnis fördert."
+"Das Feedback soll kurz und präzise sein – maximal 4 Sätze, möglichst ein bis zwei."
+"Formuliere konkret, vermeide vage Aussagen wie „Überprüfe deinen Code“."
+"Fördere Eigenständigkeit: der Lernende soll selbst den nächsten Schritt finden können."
+
+Beispielhafte Formulierungen:
+„Überprüfe, ob deine Bedingung wirklich alle erwarteten Fälle berücksichtigt.“
+„Achte darauf, dass die Methode immer einen Rückgabewert liefert.“
+„Füge eine Prüfung hinzu, um fehlerhafte Eingaben abzufangen.“
+
+Ziel:
+Gib dem Lernenden einen klaren Hinweis auf den nächsten sinnvollen Schritt, ohne die Lösung vorwegzunehmen.

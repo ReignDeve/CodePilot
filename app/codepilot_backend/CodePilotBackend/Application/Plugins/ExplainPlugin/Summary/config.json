@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "description": "Summarises a user's learning preferences for saving in the user database and for use in prompts.",
+  "execution_settings": {
+    "default": {
+      "functions": [
+        {
+          "name": "Summary",
+          "description": "Summarise the user's learning preferences",
+          "prompt": "skprompt.txt"
+        }
+      ]
+    }
+  }
+}

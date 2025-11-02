@@ -6,6 +6,7 @@ export interface TaskDto {
   status: 'NotStarted' | 'InProgress' | 'Completed'
   difficulty: 'Easy' | 'Medium' | 'Hard'
   code: string
+  externalId: string
   description: string
   solution: string
 }
@@ -49,11 +50,16 @@ export async function setTaskStatus(
   id: string,
   status: 'NotStarted' | 'InProgress' | 'Completed'
 ) {
+  const token = localStorage.getItem('jwt')
+  if (!token) throw new Error('Kein Auth-Token gefunden')
   console.log(status)
   const url = routes.updateTaskStatus.replace('{id}', id)
   const res = await fetch(url, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
     body: JSON.stringify({ status })
   })
   if (!res.ok) throw new Error(await res.text())

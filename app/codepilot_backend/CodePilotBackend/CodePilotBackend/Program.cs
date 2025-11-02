@@ -46,7 +46,7 @@ builder.Services.AddDbContext<CodePilotDbContext>(opt =>
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);   // ← nur einmal
 builder.Services.AddControllers();
-builder.Services.AddHostedService<SeedRunner>();
+//builder.Services.AddHostedService<SeedRunner>();
 
 
 builder.Services.AddEndpointsApiExplorer();
@@ -78,10 +78,10 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
-builder.Services.AddAuthentication(options =>
+builder.Services.AddAuthentication(o =>
 {
-  options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-  options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+  o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+  o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
 .AddJwtBearer(opts =>
 {
@@ -90,12 +90,15 @@ builder.Services.AddAuthentication(options =>
     ValidateIssuer = true,
     ValidateAudience = true,
     ValidateLifetime = true,
+    ValidateIssuerSigningKey = true, 
+    ClockSkew = TimeSpan.Zero,       
     ValidIssuer = builder.Configuration["Jwt:Issuer"],
     ValidAudience = builder.Configuration["Jwt:Audience"],
     IssuerSigningKey = new SymmetricSecurityKey(
-                                   Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+      Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
   };
 });
+
 
 var app = builder.Build();
 
@@ -104,7 +107,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
   var db = scope.ServiceProvider.GetRequiredService<CodePilotDbContext>();
-  db.Database.Migrate();                                                                     
+  db.Database.Migrate();
 }
 app.UseSwagger();
 app.UseSwaggerUI();
