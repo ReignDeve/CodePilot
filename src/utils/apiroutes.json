@@ -1,11 +1,14 @@
 {
-  "testrequest": "https://codepilotbackend-hkb0cdbce8bqcya5.westeurope-01.azurewebsites.net/api/explain/task",
-  "kmfeedback": "https://codepilotbackend-hkb0cdbce8bqcya5.westeurope-01.azurewebsites.net/api/explain/km",
-  "krfeedback": "https://codepilotbackend-hkb0cdbce8bqcya5.westeurope-01.azurewebsites.net/api/explain/kr",
-  "khfeedback": "https://codepilotbackend-hkb0cdbce8bqcya5.westeurope-01.azurewebsites.net/api/explain/kh",
-  "getAllTasks": "https://codepilotbackend-hkb0cdbce8bqcya5.westeurope-01.azurewebsites.net/api/Tasks",
-  "getTaskById": "https://codepilotbackend-hkb0cdbce8bqcya5.westeurope-01.azurewebsites.net/api/Tasks/{id}",
-  "updateTaskStatus": "https://codepilotbackend-hkb0cdbce8bqcya5.westeurope-01.azurewebsites.net/api/Tasks/{id}/status",
-  "authRegister": "https://codepilotbackend-hkb0cdbce8bqcya5.westeurope-01.azurewebsites.net/api/auth/register",
-  "authLogin": "https://codepilotbackend-hkb0cdbce8bqcya5.westeurope-01.azurewebsites.net/api/auth/login"
+  "testrequest": "https://codepilot-backend-cnh5c0dsg7egdxdg.germanywestcentral-01.azurewebsites.net/api/explain/task",
+  "kmfeedback": "https://codepilot-backend-cnh5c0dsg7egdxdg.germanywestcentral-01.azurewebsites.net/api/explain/km",
+  "krfeedback": "https://codepilot-backend-cnh5c0dsg7egdxdg.germanywestcentral-01.azurewebsites.net/api/explain/kr",
+  "khfeedback": "https://codepilot-backend-cnh5c0dsg7egdxdg.germanywestcentral-01.azurewebsites.net/api/explain/kh",
+  "question" : "https://codepilot-backend-cnh5c0dsg7egdxdg.germanywestcentral-01.azurewebsites.net/api/explain/question",
+  "getAllTasks": "https://codepilot-backend-cnh5c0dsg7egdxdg.germanywestcentral-01.azurewebsites.net/api/Tasks",
+  "getTaskById": "https://codepilot-backend-cnh5c0dsg7egdxdg.germanywestcentral-01.azurewebsites.net/api/Tasks/{id}",
+  "updateTaskStatus": "https://codepilot-backend-cnh5c0dsg7egdxdg.germanywestcentral-01.azurewebsites.net/api/Tasks/{id}/status",
+  "authRegister": "https://codepilot-backend-cnh5c0dsg7egdxdg.germanywestcentral-01.azurewebsites.net/api/auth/register",
+  "authLogin": "https://codepilot-backend-cnh5c0dsg7egdxdg.germanywestcentral-01.azurewebsites.net/api/auth/login",
+  "userPreferences": "https://codepilot-backend-cnh5c0dsg7egdxdg.germanywestcentral-01.azurewebsites.net/api/summary/summary",
+  "compileCode": "https://codepilot-backend-cnh5c0dsg7egdxdg.germanywestcentral-01.azurewebsites.net/api/compile"
 }
