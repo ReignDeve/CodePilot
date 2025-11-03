@@ -13,8 +13,11 @@ namespace CodePilot.Backend.WebAPI.Controllers
   public sealed class ExplainController : ControllerBase
   {
     private readonly IExplainService _explain;
+    private readonly ILogger<ExplainController> _logger;
 
-    public ExplainController(IExplainService explain) => _explain = explain;
+    public ExplainController(IExplainService explain, ILogger<ExplainController> logger) { _explain = explain;
+      _logger = logger;
+    }
     public record ExplainTaskRequest(Guid TaskId, string Code);
 
     [HttpPost("task")]
@@ -54,21 +57,30 @@ namespace CodePilot.Backend.WebAPI.Controllers
     }
 
     [HttpPost("kr")]
-    public async Task<ActionResult<string>> PostForKR(
-        [FromBody] ExplainTaskRequest req,
-        CancellationToken ct)
+    public async Task<ActionResult<string>> PostForKR([FromBody] ExplainTaskRequest req, CancellationToken ct)
     {
       var sub = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value
-            ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
+             ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       if (!Guid.TryParse(sub, out var userId)) return Forbid();
-      if (string.IsNullOrWhiteSpace(req.Code))
-        return BadRequest("Code darf nicht leer sein.");
+      if (req is null) return BadRequest("Body fehlt.");
+      if (req.TaskId == Guid.Empty) return BadRequest("TaskId fehlt.");
+      if (string.IsNullOrWhiteSpace(req.Code)) return BadRequest("Code darf nicht leer sein.");
 
-      var explanation = await _explain.KRFeedbackAsync(userId,
-          req.TaskId, req.Code, ct);
-
-      return Ok(explanation);
+      try
+      {
+        var explanation = await _explain.KRFeedbackAsync(userId, req.TaskId, req.Code, ct);
+        return Ok(explanation);
+      }
+      catch (HttpRequestException ex)   // z.B. OpenAI 401/404/429/Timeout
+      {
+        _logger.LogError(ex, "OpenAI/HTTP error in KR");
+        return StatusCode(502, new { message = "OpenAI HTTP error", detail = ex.Message });
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex, "KR failed");
+        return StatusCode(500, new { message = ex.Message });
+      }
     }
 
     [HttpPost("kh")]
