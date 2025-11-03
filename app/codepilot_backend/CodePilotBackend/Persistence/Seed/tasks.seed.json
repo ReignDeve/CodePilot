@@ -36,7 +36,7 @@
   {
     "uid": "maximum-gap",
     "status": "NotStarted",
-    "title": "2. Maximum Successive Difference",
+    "title": "3. Maximum Successive Difference",
     "difficulty": "Hard",
     "solution": "Use a bucket-based approach (Pigeonhole principle): compute global min/max, choose bucket size = ceil((max-min)/(n-1)), place each number into a bucket tracking only min/max per bucket, then scan buckets to find the largest gap between consecutive non-empty buckets.",
     "code": "public class Solution { public int MaximumGap(int[] nums) { } }",
