@@ -46,7 +46,10 @@ builder.Services.AddDbContext<CodePilotDbContext>(opt =>
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);   // ← nur einmal
 builder.Services.AddControllers();
-//builder.Services.AddHostedService<SeedRunner>();
+if (builder.Configuration["RUN_SEED"]?.Equals("true", StringComparison.OrdinalIgnoreCase) == true)
+{
+  builder.Services.AddHostedService<SeedRunner>();
+}
 
 
 builder.Services.AddEndpointsApiExplorer();
