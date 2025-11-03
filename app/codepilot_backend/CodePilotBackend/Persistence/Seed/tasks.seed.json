@@ -24,16 +24,6 @@
     ]
   },
   {
-    "uid": "map-array-to-new-values",
-    "status": "Completed",
-    "title": "3. Map Array to New Values",
-    "difficulty": "Easy",
-    "solution": "Use Array.map() to return transformed items.",
-    "code": "public string[] MapToUpper(string[] arr) {\n    // TODO: implement mapping to uppercase\n}",
-    "description": "Given an array of strings, return a new array where each string is converted to uppercase.\n\nYou may assume:\n- The input array contains at least one string.\n\nExample 1\nInput: arr = [\"hello\", \"world\"]\nOutput: [\"HELLO\", \"WORLD\"]\n\nExample 2\nInput: arr = [\"Test\", \"Case\"]\nOutput: [\"TEST\", \"CASE\"]\n\nExample 3\nInput: arr = [\"a\", \"b\", \"c\"]\nOutput: [\"A\", \"B\", \"C\"]\n\nConstraints:\n- 1 ≤ arr.length ≤ 10⁴\n- 1 ≤ arr[i].length ≤ 100",
-    "invocations": [ "new[]{\"hello\", \"world\"}", "new[]{\"Test\", \"Case\"}", "new[]{\"a\", \"b\", \"c\"}" ]
-  },
-  {
     "uid": "reduce-array-to-single-value",
     "status": "NotStarted",
     "title": "4. Reduce Array to Single Value",
@@ -42,19 +32,5 @@
     "code": "public int SumArray(int[] nums) {\n    // TODO: implement summation logic\n}",
     "description": "Given an array of numbers, return the sum of all elements using reduce.\n\nYou may assume:\n- The input array contains at least one number.\n\nExample 1\nInput: nums = [5, 10, 15]\nOutput: 30\n\nExample 2\nInput: nums = [1, 1, 1, 1]\nOutput: 4\n\nExample 3\nInput: nums = [-5, 5]\nOutput: 0\n\nConstraints:\n- 1 ≤ nums.length ≤ 10⁴\n- -10⁹ ≤ nums[i] ≤ 10⁹",
     "invocations": [ "new[]{5, 10, 15}", "new[]{1, 1, 1, 1}", "new[]{-5, 5}" ]
-  },
-  {
-    "uid": "nested-loops-for-matrix",
-    "status": "InProgress",
-    "title": "5. Nested Loops for Matrix",
-    "difficulty": "Medium",
-    "solution": "Use two nested for loops to access matrix elements.",
-    "code": "public int[] FlattenMatrix(int[][] matrix) {\n    // TODO: implement flatten logic\n}",
-    "description": "Given a 2D array (matrix), return a flat array of all elements in row-major order using nested loops.\n\nYou may assume:\n- The matrix contains at least one row.\n\nExample 1\nInput: matrix = [[1, 2], [3, 4]]\nOutput: [1, 2, 3, 4]\n\nExample 2\nInput: matrix = [[5]]\nOutput: [5]\n\nExample 3\nInput: matrix = [[1, 2, 3], [4, 5, 6]]\nOutput: [1, 2, 3, 4, 5, 6]\n\nConstraints:\n- 1 ≤ matrix.length, matrix[i].length ≤ 10³\n- -10⁹ ≤ matrix[i][j] ≤ 10⁹",
-    "invocations": [
-      "new[]{ new[]{1, 2}, new[]{3, 4} }",
-      "new[]{ new[]{5} }",
-      "new[]{ new[]{1, 2, 3}, new[]{4, 5, 6} }"
-    ]
   }
 ]
