@@ -3,6 +3,9 @@
 **A research-driven AI code tutoring platform**  
 *Bachelor’s Thesis Project*
 
+**A live prototype is available at**
+https://delightful-river-0f14c5103.3.azurestaticapps.net/
+
 ---
 
 ## 🚀 Overview
@@ -20,7 +23,7 @@ CodePilot is an interactive, AI-powered code tutoring system designed as part of
   - **ExplainExercise**: Concise, context-aware code explanations  
   - **KRFeedback**: “Knowledge of Results” – Correct vs. Incorrect judgments  
   - **KMFeedback**: “Knowledge of Mistakes” – Pinpoints specific errors  
-  - **KHFeedback**: “Knowledge of Hints” – Subtle, scaffolded improvement hints
+  - **KHFeedback**: “Knowledge onhow to Proceed” – Subtle, scaffolded improvement hints
 
 - **User Authentication & Progress**  
   Secure registration and login (JWT), per-user task progress tracking stored in SQLite.
@@ -48,7 +51,6 @@ CodePilot is an interactive, AI-powered code tutoring system designed as part of
   - Radix UI themes & Resizable Panels
 
 - **Dev Tools**:  
-  - Docker (optional)  
   - GitHub Actions (CI/CD)  
   - Swagger / OpenAPI
 
@@ -61,7 +63,6 @@ CodePilot is an interactive, AI-powered code tutoring system designed as part of
 - [.NET 8 SDK](https://dotnet.microsoft.com/download)  
 - [Node.js 18+ & npm/Yarn](https://nodejs.org/)  
 - OpenAI API Key  
+- Usersecret
+  - JWT Key
 
-### Backend
-
-Coming Soon....
