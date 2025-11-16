@@ -6,6 +6,8 @@
 **A live prototype is available at**
 https://delightful-river-0f14c5103.3.azurestaticapps.net/
 
+**If there is an "404: Not Found" error just go back to the base url: https://delightful-river-0f14c5103.3.azurestaticapps.net/**
+
 ---
 
 ## 🚀 Overview
