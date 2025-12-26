@@ -56,15 +56,5 @@ CodePilot is an interactive, AI-powered code tutoring system designed as part of
   - GitHub Actions (CI/CD)  
   - Swagger / OpenAPI
 
----
 
-## 🔧 Installation
-
-### Prerequisites
-
-- [.NET 8 SDK](https://dotnet.microsoft.com/download)  
-- [Node.js 18+ & npm/Yarn](https://nodejs.org/)  
-- OpenAI API Key  
-- Usersecret
-  - JWT Key
 
